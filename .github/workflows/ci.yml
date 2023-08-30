@@ -1,0 +1,20 @@
+name: Continuous integration
+on: [push]
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: stepchowfun/toast/.github/actions/toast@v0.47.5
+      with:
+        tasks: build
+    - uses: ayeressian/bunnycdn-storage-deploy@v2.1.0
+      with:
+        source: "dist"
+        storageZoneName: "${{ secrets.STORAGE_NAME }}"
+        storagePassword: "${{ secrets.STORAGE_PASSWORD }}"
+        accessKey: "${{ secrets.BUNNY_API_KEY }}"
+        pullZoneId: "${{ secrets.ZONE_ID }}"
+        upload: "true"
+        remove: "true"
+        purgePullZone: "true"
