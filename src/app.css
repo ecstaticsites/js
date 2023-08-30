@@ -1,0 +1,11 @@
+@import 'c3/c3.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* overrides for the above */
+
+.c3 svg {
+  font: 12px "Roboto Mono";
+}
