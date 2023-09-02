@@ -1,3 +1,7 @@
+// TODO, get these outta here, env vars
+export const supabaseUrl = 'https://ewwccbgjnulfgcvfrsvj.supabase.co';
+export const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV3d2NjYmdqbnVsZmdjdmZyc3ZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTM1ODE2ODUsImV4cCI6MjAwOTE1NzY4NX0.gI3YdNSC5GMkda2D2QPRMvnBdaMOS2ynfFKxis5-WKs';
+
 export function influxToC3(raw, isTimeseries) {
 
   if( raw["results"] === undefined ) {
