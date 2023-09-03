@@ -19,6 +19,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.33.1",
     "c3": "^0.7.20",
-    "dayjs": "^1.11.9"
+    "dayjs": "^1.11.9",
+    "svelte-select": "^5.7.0"
   }
 }

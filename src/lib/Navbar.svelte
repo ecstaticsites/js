@@ -2,26 +2,68 @@
 
   import { onMount } from 'svelte';
 
+  import Select from 'svelte-select';
+
   import { createClient } from '@supabase/supabase-js';
-  import { supabaseUrl, supabaseKey } from './util.js'
+  import { supabaseUrl, supabaseKey } from './util.js';
+  import { currentSite } from './global.js';
 
-  let supabase = createClient(supabaseUrl, supabaseKey);
+  async function getSitesForSelect() {
 
-  let sitePromise = supabase.from('site').select('site_name');
+    let supabase = createClient(supabaseUrl, supabaseKey);
+
+    let sites = await supabase.from('site').select('site_id, site_name');
+
+    if (sites["error"]) {
+      throw new Error(`Couldn't get data from supabase: ${sites["error"]}`)
+    }
+
+    return sites["data"].map((d) => {
+      return {"label": d["site_name"], "value": d["site_id"]}
+    });
+  }
 
 </script>
 
 <div class="w-full h-14 bg-red-800 text-[#E8DED1] flex items-center px-2">
   <div class="text-4xl font-['SNES'] pr-4 pt-1 shrink-0">CLOUDY BUT NO RAIN</div>
   <div class="h-full w-full flex justify-between items-center">
-    <div class="ml-2 p-2 hover:bg-red-900 rounded-md cursor-pointer">Site: willett.io</div>
-    {#await sitePromise}
-      ...
-    {:then data}
-      {console.log(data)}
-    {:catch error}
-      ERROR OCCURRED {error}
-    {/await}
+    <div class="flex items-center">
+      <div class="ml-4">Site: </div>
+      {#await getSitesForSelect()}
+        THINKING
+      {:then sitesForSelect}
+        <Select
+          items={sitesForSelect}
+          searchable={false}
+          clearable={false}
+          placeholder={"Select a site"}
+          class="!bg-red-800 !w-64 !border-none"
+          --height="34px"
+          --max-height="34px"
+          bind:justValue={$currentSite}
+        />
+      {:catch error}
+        ERROR OCCURRED {error}
+      {/await}
+      <div class="ml-4">Timespan: </div>
+      {#await getSitesForSelect()}
+        THINKING
+      {:then sitesForSelect}
+        <Select
+          items={sitesForSelect}
+          searchable={false}
+          clearable={false}
+          placeholder={"Select a site"}
+          class="!bg-red-800 !w-64 !border-none"
+          --height="34px"
+          --max-height="34px"
+          bind:justValue={$currentSite}
+        />
+      {:catch error}
+        ERROR OCCURRED {error}
+      {/await}
+  </div>
     <div class="flex">
       <div class="ml-2 p-2 hover:bg-red-900 rounded-md cursor-pointer">Docs</div>
       <div class="ml-2 p-2 hover:bg-red-900 rounded-md cursor-pointer">Support</div>
