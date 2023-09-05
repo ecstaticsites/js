@@ -3,15 +3,11 @@
   import Navbar from './lib/Navbar.svelte'
   import LogIn from './lib/LogIn.svelte'
 
-  import { supabaseUrl, supabaseKey } from './lib/util.js'
+  import Supabase from './lib/supabase.js'
 
-  import { onMount } from 'svelte';
+  let supa = new Supabase();
 
-  import { createClient } from '@supabase/supabase-js';
-
-  const supabase = createClient(supabaseUrl, supabaseKey);
-
-  const sessionPromise = supabase.auth.getSession().then(({data, error}) => {
+  let sessionPromise = supa.client.auth.getSession().then(({data, error}) => {
     if (error) {
       console.log(error)
       throw new Error(`Error occurred in getSession: ${error}`);
@@ -24,8 +20,6 @@
     }
   });
 
-  onMount(async () => {
-
     // alright, this is the way
     // on frontend, user logs in, gets JWT
     // use JWT'd supa client to query sites, put in dropdown
@@ -34,34 +28,6 @@
     // queries DB for site name from ID (implicitly validates auth as well)
     // then forwards site name to influx query
 
-    // tip -- I believe this is only good for 1h, made at 1030PM EST on sep 1, should not work tomorrow?
-    const accessToken = 'fo.fo.fo';
-
-    // const supabase = createClient(supabaseUrl, supabaseKey, {
-    //   db: {
-    //     schema: 'public',
-    //   },
-    //   auth: {
-    //     persistSession: false,
-    //     autoRefreshToken: false,
-    //   },
-    //   global: {
-    //     headers: {
-    //       Authorization: `Bearer ${accessToken}`,
-    //     },
-    //   },
-    // });
-
-    // const { data, error } = await supabase.from('testtable').select()
-
-    // let { data, error } = await supabase.auth.signInWithPassword({
-    //   email: 'bcwillett1@gmail.com',
-    //   password: 'test'
-    // });
-
-    // console.log(data)
-    // console.log(error)
-  });
 </script>
 
 <main class="w-screen h-screen flex flex-col">

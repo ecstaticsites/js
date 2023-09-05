@@ -4,15 +4,15 @@
 
   import Select from 'svelte-select';
 
-  import { createClient } from '@supabase/supabase-js';
-  import { supabaseUrl, supabaseKey } from './util.js';
+  import Supabase from './supabase.js'
+
   import { currentSite } from './global.js';
 
   async function getSitesForSelect() {
 
-    let supabase = createClient(supabaseUrl, supabaseKey);
+    let supa = new Supabase();
 
-    let sites = await supabase.from('site').select('site_id, site_name');
+    let sites = await supa.client.from('site').select('site_id, site_name');
 
     if (sites["error"]) {
       throw new Error(`Couldn't get data from supabase: ${sites["error"]}`)

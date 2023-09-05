@@ -1,16 +1,15 @@
 <script>
 
-  import { createClient } from '@supabase/supabase-js';
-  import { supabaseUrl, supabaseKey } from './util.js'
+  import Supabase from './supabase.js'
 
   let email;
   let password;
 
   async function logIn() {
 
-    let supabase = createClient(supabaseUrl, supabaseKey);
+    let supa = new Supabase();
 
-    let { data, error } = await supabase.auth.signInWithPassword({
+    let { data, error } = await supa.client.auth.signInWithPassword({
       "email": email,
       "password": password,
     });
@@ -20,7 +19,6 @@
   }
 
 </script>
-
 
 <!-- todo, clean this the fuck up -->
 <div class="w-full h-full flex items-center justify-center">

@@ -2,11 +2,15 @@
 
   // This is the graph PLUS mechanisms to feed it data etc
 
-  import { writable, derived } from "svelte/store";
+  import { writable, derived, get } from "svelte/store";
   import { influxToC3 } from "./util.js";
 
   import GraphCategorical from "./GraphCategorical.svelte";
   import GraphTimeseries from "./GraphTimeseries.svelte";
+
+  import Supabase from './supabase.js'
+
+  import { currentSite } from './global.js';
 
   export let title;
   export let groupby;
@@ -19,17 +23,41 @@
 
   async function update() {
 
+    let supa = new Supabase();
+
+    let { data, error } = await supa.client.auth.getSession();
+
+    if (error) {
+      throw new Error(`getSession returned error: ${error}`)
+    }
+
+    if (!data["session"]) {
+      throw new Error("getSession returned no session, maybe not logged in?")
+    }
+
+    if (!data["session"]["access_token"]) {
+      throw new Error("getSession returned no access token, maybe not logged in?")
+    }
+
     let apiHost = import.meta.env.VITE_API_SERVER_URL;
     let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    let query = `groupby=${groupby}&bucketby=${bucketby}&tz=${encodeURIComponent(tz)}`
+    if (!get(currentSite)) {
+      throw new Error("can't issue a query with no site")
+    }
+
+    let query = `site=${get(currentSite)}&groupby=${groupby}&bucketby=${bucketby}&tz=${encodeURIComponent(tz)}`
     let url = `${apiHost}/query?${query}`
+
+    console.log(url)
 
     let response = await fetch(url, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${data["session"]["access_token"]}`
       },
+      credentials: "include",
     });
 
     let json = await response.json();
