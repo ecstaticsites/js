@@ -2,17 +2,7 @@
   import Navbar from '../lib/Navbar.svelte'
   import OverviewRow from '../lib/OverviewRow.svelte'
 
-  import { push } from 'svelte-spa-router'
-
   import Supabase from '../lib/supabase.js'
-
-  let supa = new Supabase();
-  let authCheck = supa.isLoggedIn();
-
-  authCheck.catch((error) => {
-    console.error(`getSession was unsuccessful, redirecting to login: ${error}`);
-    push("/login");
-  });
 
   async function getSitesForSelect() {
 
@@ -32,15 +22,11 @@
 </script>
 
 <main class="w-screen h-screen flex flex-col">
-  {#await authCheck}
-    <p>...checking auth...</p>
-  {:then _}
   <Navbar/>
   <div class="w-full h-full flex justify-center">
     <div class="w-[768px]">
       <OverviewRow site={"foo"} />
     </div>
   </div>
-  {/await}
 </main>
 

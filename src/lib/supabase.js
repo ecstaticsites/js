@@ -17,18 +17,24 @@ export default class Supabase {
 
     this.client = createClient(supabaseUrl, supabaseKey);
   }
+}
 
-  async isLoggedIn() {
+export async function IsLoggedIn(detail) {
 
-    let { data, error } = await this.client.auth.getSession();
+  console.log(`Checking auth before proceeding to page ${detail.location}...`)
 
-    if (error) {
-      throw new Error(`Error occurred in getSession: ${error}`);
-    } else if (!data["session"]) {
-      throw new Error("According to getSession, user is not logged in");
-    } else {
-      return true;
-    }
+  let supa = new Supabase();
+  let { data, error } = await supa.client.auth.getSession();
 
+  if (error) {
+    console.log(`Error occurred in getSession, redirecting to login: ${error}`);
+    return false;
+  } else if (!data["session"]) {
+    console.log("No user seems to be logged in, redirecting to login");
+    return false;
+  } else {
+    console.log(`All good, logged in as ${data["session"]["user"]["email"]}!`)
+    return true;
   }
+
 }
