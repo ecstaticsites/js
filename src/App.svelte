@@ -21,10 +21,11 @@
     }),
     "/login": wrap({
       component: Login,
+      // todo -- make login page redirect to overview if logged in
       conditions: [],
     }),
   }
 
 </script>
 
-<Router {routes} on:conditionsFailed={() => push("/login")}/>
+<Router {routes} on:conditionsFailed={(event) => push("/login")}/>
