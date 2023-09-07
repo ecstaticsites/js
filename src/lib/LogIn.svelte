@@ -1,5 +1,7 @@
 <script>
 
+  import { push } from 'svelte-spa-router'
+
   import Supabase from './supabase.js'
 
   let email;
@@ -26,5 +28,6 @@
     <input class="w-full" placeholder="email" bind:value={email}>
     <input class="w-full" placeholder="password" bind:value={password}>
     <button on:click={logIn}>CLICK ME</button>
+    <button on:click={() => push('/dashboard')}>Go to dash</button>
   </div>
 </div>

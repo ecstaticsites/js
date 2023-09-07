@@ -17,4 +17,18 @@ export default class Supabase {
 
     this.client = createClient(supabaseUrl, supabaseKey);
   }
+
+  async isLoggedIn() {
+
+    let { data, error } = await this.client.auth.getSession();
+
+    if (error) {
+      throw new Error(`Error occurred in getSession: ${error}`);
+    } else if (!data["session"]) {
+      throw new Error("According to getSession, user is not logged in");
+    } else {
+      return true;
+    }
+
+  }
 }
