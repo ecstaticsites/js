@@ -1,4 +1,4 @@
-export function influxToC3(raw, isTimeseries) {
+export function influxToBillboard(raw, isTimeseries) {
 
   if( raw["results"] === undefined ) {
       return [];

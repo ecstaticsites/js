@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
 
-  import c3 from 'c3';
+  import bb, { pie } from 'billboard.js';
   import dayjs from 'dayjs';
 
   import { randomInt } from './util.js';
@@ -13,20 +13,20 @@
 
   onMount(() => {
 
-    // set up the c3 chart
-    chart = c3.generate({
+    // set up the billboard chart
+    chart = bb.generate({
       "bindto": `#${chartId}`,
       "data": {
         "x" : "x",
         "columns": [],
-        "type": "bar",
+        "type": pie(),
       },
-      "axis": {
-        "x": {
-          "type": 'category',
-        },
-        "rotated": true,
-      },
+      // "axis": {
+      //   "x": {
+      //     "type": 'category',
+      //   },
+      //   "rotated": true,
+      // },
       "legend": {
         "show": false,
       },

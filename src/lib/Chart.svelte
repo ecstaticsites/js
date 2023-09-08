@@ -3,7 +3,7 @@
   // This is the graph PLUS mechanisms to feed it data etc
 
   import { writable, derived, get } from "svelte/store";
-  import { influxToC3 } from "./util.js";
+  import { influxToBillboard } from "./util.js";
 
   import GraphCategorical from "./GraphCategorical.svelte";
   import GraphTimeseries from "./GraphTimeseries.svelte";
@@ -19,7 +19,7 @@
   let isTimeseries = (bucketby == "") ? false : true;
 
   let rawResult = writable([]);
-  let c3result = derived(rawResult, ($res) => influxToC3($res, isTimeseries));
+  let bbResult = derived(rawResult, ($res) => influxToBillboard($res, isTimeseries));
 
   async function update() {
 
@@ -75,9 +75,9 @@
   </div>
   <div class="w-full grow">
     {#if isTimeseries}
-    <GraphTimeseries store={c3result}/>
+    <GraphTimeseries store={bbResult}/>
     {:else}
-    <GraphCategorical store={c3result}/>
+    <GraphCategorical store={bbResult}/>
     {/if}
   </div>
 </div>

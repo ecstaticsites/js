@@ -1,2 +1,5 @@
 # built site artifacts
 /dist
+
+# mac stuff
+.DS_Store

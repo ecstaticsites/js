@@ -8,13 +8,13 @@
 
     let supa = new Supabase();
 
-    let sites = await supa.client.from('site').select('site_id, site_name');
+    let { data, error } = await supa.client.from('site').select('site_id, site_name');
 
-    if (sites["error"]) {
-      throw new Error(`Couldn't get data from supabase: ${sites["error"]}`)
+    if (error) {
+      throw new Error(`Couldn't get data from supabase: ${error}`)
     }
 
-    return sites["data"].map((d) => {
+    return data.map((d) => {
       return {"label": d["site_name"], "value": d["site_id"]}
     });
   }

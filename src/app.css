@@ -1,4 +1,5 @@
-@import 'c3/c3.css';
+/* comes from node_modules/billboard.js/dist/billboard.min.css */
+@import 'billboard.js/dist/billboard.min.css';
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +7,7 @@
 
 /* overrides for the above */
 
-.c3 svg {
+.bb svg {
   font: 12px "Roboto Mono";
 }
 
