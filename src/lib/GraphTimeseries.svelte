@@ -39,11 +39,12 @@
 
     // subscribe to the store so whenever there IS data, we get it
     store.subscribe((value) => {
-      chart.load({
-        "columns": value,
-        "unload": true,
+      chart.unload({
+        "done": () => {
+          chart.groups([value.map(x => x[0])]);
+          chart.load({"columns": value});
+        }
       });
-      chart.groups([value.map(x => x[0])]);
     });
   });
 
