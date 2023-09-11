@@ -10,17 +10,7 @@
 
   async function getSitesForSelect() {
 
-    let supa = new Supabase();
-
-    let { data, error } = await supa.client.from('site').select('site_id, site_name');
-
-    if (error) {
-      throw new Error(`Couldn't get data from supabase: ${error}`)
-    }
-
-    return data.map((d) => {
-      return {"label": d["site_name"], "value": d["site_id"]}
-    });
+    return [];
   }
 
 </script>

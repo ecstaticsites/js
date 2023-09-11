@@ -8,15 +8,15 @@
 
     let supa = new Supabase();
 
-    let { data, error } = await supa.client.from('site').select('site_id, site_name');
+    let { data, error } = await supa.client.from('site').select();
 
     if (error) {
       throw new Error(`Couldn't get data from supabase: ${error}`)
     }
 
-    return data.map((d) => {
-      return {"label": d["site_name"], "value": d["site_id"]}
-    });
+    console.log(data)
+
+    return data;
   }
 
 </script>
@@ -25,7 +25,15 @@
   <Navbar/>
   <div class="w-full h-full flex justify-center">
     <div class="w-[768px]">
-      <OverviewRow site={"foo"} />
+    {#await getSitesForSelect()}
+      ...THINKING...
+    {:then sites}
+      {#each sites as site}
+        <OverviewRow site={site} />
+      {/each}
+    {:catch err}
+      ERROR OCCURRED: {err}
+    {/await}
     </div>
   </div>
 </main>
