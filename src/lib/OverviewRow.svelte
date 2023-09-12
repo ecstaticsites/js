@@ -22,7 +22,9 @@
   </div>
   <div class="w-24 flex justify-between items-center">
     <div class="w-2 h-2 flex justify-center items-center bg-green-200 p-3">⬆️</div>
-    <div class="w-2 h-2 flex justify-center items-center bg-green-200 p-3">📊</div>
+    <div class="w-2 h-2 flex justify-center items-center bg-green-200 p-3">
+      <a href="#/dashboard/{site["id"]}">📊</a>
+    </div>
     <div class="w-2 h-2 flex justify-center items-center bg-green-200 p-3">⚙️</div>
   </div>
 </div>

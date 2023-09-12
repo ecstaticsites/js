@@ -15,7 +15,7 @@
       component: Overview,
       conditions: [IsLoggedIn],
     }),
-    "/dashboard": wrap({
+    "/dashboard/:id": wrap({
       component: Dashboard,
       conditions: [IsLoggedIn],
     }),

@@ -13,6 +13,7 @@
   import { currentSite } from './global.js';
 
   export let title;
+  export let hostname;
   export let groupby;
   export let bucketby;
 
@@ -21,6 +22,9 @@
   let rawResult = writable([]);
   let bbResult = derived(rawResult, ($res) => influxToBillboard($res, isTimeseries));
 
+  // this should maybe be $: {}, since we'll want it to run reactively when
+  // the hostname prop is updated from outside this component
+  // but I should look up how this works since I want to scope reactivity as small as possible
   async function update() {
 
     let supa = new Supabase();

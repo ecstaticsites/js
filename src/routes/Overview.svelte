@@ -4,28 +4,14 @@
 
   import Supabase from '../lib/supabase.js'
 
-  async function getSitesForSelect() {
-
-    let supa = new Supabase();
-
-    let { data, error } = await supa.client.from('site').select();
-
-    if (error) {
-      throw new Error(`Couldn't get data from supabase: ${error}`)
-    }
-
-    console.log(data)
-
-    return data;
-  }
-
+  let supa = new Supabase();
 </script>
 
 <main class="w-screen h-screen flex flex-col">
   <Navbar/>
   <div class="w-full h-full flex justify-center">
     <div class="w-[768px]">
-    {#await getSitesForSelect()}
+    {#await supa.GetSites()}
       ...THINKING...
     {:then sites}
       {#each sites as site}

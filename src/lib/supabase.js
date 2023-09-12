@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
-// singleton
 export default class Supabase {
 
+  // basic singleton pattern, works best if we only have one of these
   constructor() {
 
     if (Supabase.instance) {
@@ -17,24 +17,51 @@ export default class Supabase {
 
     this.client = createClient(supabaseUrl, supabaseKey);
   }
-}
 
-export async function IsLoggedIn(detail) {
+  // used in the svelte router to guard routes behind authentication
+  async function IsLoggedIn(detail) {
 
-  console.log(`Checking auth before proceeding to page ${detail.location}...`)
+    console.log(`Checking auth before proceeding to page ${detail.location}...`)
 
-  let supa = new Supabase();
-  let { data, error } = await supa.client.auth.getSession();
+    let { data, error } = await this.client.auth.getSession();
 
-  if (error) {
-    console.log(`Error occurred in getSession, redirecting to login: ${error}`);
-    return false;
-  } else if (!data["session"]) {
-    console.log("No user seems to be logged in, redirecting to login");
-    return false;
-  } else {
-    console.log(`All good, logged in as ${data["session"]["user"]["email"]}!`)
-    return true;
+    if (error) {
+      console.log(`Error occurred in getSession, redirecting to login: ${error}`);
+      return false;
+    } else if (!data["session"]) {
+      console.log("No user seems to be logged in, redirecting to login");
+      return false;
+    } else {
+      console.log(`All good, logged in as ${data["session"]["user"]["email"]}!`)
+      return true;
+    }
   }
 
+  // gets the list of sites created by the currently-logged-in user
+  async function GetSites() {
+
+    console.log("Getting from supabase the list of sites...");
+
+    let { data, error } = await this.client.from('site').select();
+
+    if (error) {
+      throw new Error(`Couldn't get data from supabase: ${error}`);
+    }
+
+    return data;
+  }
+
+  // gets the list of alises for the given site
+  async function GetAliases(site) {
+
+    console.log(`Getting from supabase the list of aliases for site ${site}...`);
+
+    let { data, error } = await this.client.from('alias').select().eq('site_id', site);
+
+    if (error) {
+      throw new Error(`Couldn't get data from supabase: ${error}`);
+    }
+
+    return data;
+  }
 }
