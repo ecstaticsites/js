@@ -6,7 +6,7 @@ export default class Supabase {
   constructor() {
 
     if (Supabase.instance) {
-      return Supabase.instance
+      return Supabase.instance;
     }
 
     Supabase.instance = this;
@@ -18,27 +18,8 @@ export default class Supabase {
     this.client = createClient(supabaseUrl, supabaseKey);
   }
 
-  // used in the svelte router to guard routes behind authentication
-  async function IsLoggedIn(detail) {
-
-    console.log(`Checking auth before proceeding to page ${detail.location}...`)
-
-    let { data, error } = await this.client.auth.getSession();
-
-    if (error) {
-      console.log(`Error occurred in getSession, redirecting to login: ${error}`);
-      return false;
-    } else if (!data["session"]) {
-      console.log("No user seems to be logged in, redirecting to login");
-      return false;
-    } else {
-      console.log(`All good, logged in as ${data["session"]["user"]["email"]}!`)
-      return true;
-    }
-  }
-
   // gets the list of sites created by the currently-logged-in user
-  async function GetSites() {
+  async GetSites() {
 
     console.log("Getting from supabase the list of sites...");
 
@@ -52,7 +33,7 @@ export default class Supabase {
   }
 
   // gets the list of alises for the given site
-  async function GetAliases(site) {
+  async GetAliases(site) {
 
     console.log(`Getting from supabase the list of aliases for site ${site}...`);
 
@@ -63,5 +44,28 @@ export default class Supabase {
     }
 
     return data;
+  }
+}
+
+// used in the svelte router to guard routes behind authentication
+// needs to live outside the supabase class since it's passed as a higher order fn
+// see also https://stackoverflow.com/questions/4011793/
+export async function IsLoggedIn(detail) {
+
+  let supa = new Supabase();
+
+  console.log(`Checking auth before proceeding to page ${detail.location}...`)
+
+  let { data, error } = await supa.client.auth.getSession();
+
+  if (error) {
+    console.log(`Error occurred in getSession, redirecting to login: ${error}`);
+    return false;
+  } else if (!data["session"]) {
+    console.log("No user seems to be logged in, redirecting to login");
+    return false;
+  } else {
+    console.log(`All good, logged in as ${data["session"]["user"]["email"]}!`)
+    return true;
   }
 }
