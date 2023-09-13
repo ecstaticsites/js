@@ -34,11 +34,11 @@
     let apiHost = import.meta.env.VITE_API_SERVER_URL;
     let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    if (!get(currentSite)) {
-      throw new Error("can't issue a query with no site")
-    }
+    // if (!get(currentSite)) {
+    //   throw new Error("can't issue a query with no site")
+    // }
 
-    let query = `site=${get(currentSite)}&groupby=${groupby}&bucketby=${bucketby}&tz=${encodeURIComponent(tz)}`
+    let query = `site=${"www.cbnr.xyz"}&groupby=${groupby}&bucketby=${bucketby}&tz=${encodeURIComponent(tz)}`
     let url = `${apiHost}/query?${query}`
 
     console.log(url)

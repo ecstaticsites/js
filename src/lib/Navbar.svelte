@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="flex justify-center items-center">
-    <div class="text-4xl font-['SNES'] pr-4 pt-1 pl-1 shrink-0">CLOUDY BUT NO RAIN</div>
+    <div class="text-4xl font-['SNES'] pr-4 pt-1 pl-1 shrink-0 antialiased">CLOUDY BUT NO RAIN</div>
   </div>
   <div class="flex justify-end items-center">
     <div class="ml-2 p-2 hover:bg-red-900 rounded-md cursor-pointer">Docs</div>
