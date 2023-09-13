@@ -29,7 +29,7 @@
   // but I should look up how this works since I want to scope reactivity as small as possible
   async function update() {
 
-    let jwt = supa.GetAccessToken();
+    let jwt = await supa.GetAccessToken();
 
     let apiHost = import.meta.env.VITE_API_SERVER_URL;
     let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
