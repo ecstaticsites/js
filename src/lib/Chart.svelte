@@ -38,7 +38,7 @@
     //   throw new Error("can't issue a query with no site")
     // }
 
-    let query = `site=${"www.cbnr.xyz"}&groupby=${groupby}&bucketby=${bucketby}&tz=${encodeURIComponent(tz)}`
+    let query = `site=${"8c573e27-55e6-4baa-afd7-2ea158d51d8f"}&groupby=${groupby}&bucketby=${bucketby}&tz=${encodeURIComponent(tz)}`
     let url = `${apiHost}/query?${query}`
 
     console.log(url)
