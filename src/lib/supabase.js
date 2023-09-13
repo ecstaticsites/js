@@ -18,6 +18,24 @@ export default class Supabase {
     this.client = createClient(supabaseUrl, supabaseKey);
   }
 
+  // gets the current JWT for the currently-logged-in user
+  async GetAccessToken() {
+
+    console.log("Calling getSession to access the current JWT...");
+
+    let { data, error } = await this.client.auth.getSession();
+
+    if (error) {
+      throw new Error(`Error occurred in getSession: ${error}`)
+    } else if (!data["session"]) {
+      throw new Error("No session in getSession response, maybe not logged in?")
+    } else if (!data["session"]["access_token"]) {
+      throw new Error("No access_token in getSession response, maybe not logged in?")
+    }
+
+    return data["session"]["access_token"];
+  }
+
   // gets the list of sites created by the currently-logged-in user
   async GetSites() {
 
