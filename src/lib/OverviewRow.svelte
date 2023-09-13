@@ -2,14 +2,15 @@
 
   import dayjs from 'dayjs';
 
-  import * as relativeTime from 'dayjs/plugin/relativeTime';
+  // import * as relativeTime from 'dayjs/plugin/relativeTime';
 
-  dayjs.extend(relativeTime);
+  // WORKS IN DEV, BREAKS IN PROD??
+  // dayjs.extend(relativeTime);
 
   // dict representing supabase SITE row -- id, nickname, created, updated
   export let site;
 
-  let relative = dayjs(site["last_updated_at"]).fromNow();
+  //let relative = dayjs(site["last_updated_at"]).fromNow();
 
 </script>
 
@@ -18,7 +19,7 @@
     📍 {site["nickname"]}
   </div>
   <div>
-    ⏱ {relative}
+    ⏱ {"HELLO"}
   </div>
   <div class="w-24 flex justify-between items-center">
     <div class="w-2 h-2 flex justify-center items-center bg-green-200 p-3">⬆️</div>
