@@ -13,7 +13,7 @@
   import { currentSite } from './global.js';
 
   export let title;
-  export let hostname;
+  export let siteid;
   export let groupby;
   export let bucketby;
 
@@ -34,11 +34,7 @@
     let apiHost = import.meta.env.VITE_API_SERVER_URL;
     let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    // if (!get(currentSite)) {
-    //   throw new Error("can't issue a query with no site")
-    // }
-
-    let query = `site=${"8c573e27-55e6-4baa-afd7-2ea158d51d8f"}&groupby=${groupby}&bucketby=${bucketby}&tz=${encodeURIComponent(tz)}`
+    let query = `site=${siteid}&groupby=${groupby}&bucketby=${bucketby}&tz=${encodeURIComponent(tz)}`
     let url = `${apiHost}/query?${query}`
 
     console.log(url)

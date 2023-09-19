@@ -8,9 +8,7 @@
 
   export let params = {}
 
-  let site = params["id"];
-
-  let selectedHostname = ""
+  let siteid = params["id"];
 
 </script>
 
@@ -23,17 +21,17 @@
         <div>(timespan and hostname selector go here etc, settings cogwheel)</div>
       </div>
       <div class="w-full">
-        <Chart title="Hits By Status" bind:hostname={selectedHostname} groupby="statuscode" bucketby="1d"/>
+        <Chart title="Hits By Status" siteid={siteid} groupby="statuscode" bucketby="1d"/>
       </div>
       <div class="w-full flex flex-row">
         <div class="w-1/3">
-          <Chart title="Hits by Device" bind:hostname={selectedHostname} groupby="device" bucketby=""/>
+          <Chart title="Hits by Device" siteid={siteid} groupby="device" bucketby=""/>
         </div>
         <div class="w-1/3">
-          <Chart title="Hits by Browser" bind:hostname={selectedHostname} groupby="browser" bucketby=""/>
+          <Chart title="Hits by Browser" siteid={siteid} groupby="browser" bucketby=""/>
         </div>
         <div class="w-1/3">
-          <Chart title="Hits by OS" bind:hostname={selectedHostname} groupby="os" bucketby=""/>
+          <Chart title="Hits by OS" siteid={siteid} groupby="os" bucketby=""/>
         </div>
       </div>
     </div>
