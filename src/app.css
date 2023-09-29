@@ -1,5 +1,7 @@
 /* comes from node_modules/billboard.js/dist/billboard.min.css */
 @import 'billboard.js/dist/billboard.min.css';
+@import 'flatpickr/dist/flatpickr.css';
+@import 'flatpickr/dist/plugins/monthSelect/style.css';
 
 @tailwind base;
 @tailwind components;

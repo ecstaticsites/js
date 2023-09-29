@@ -32,6 +32,8 @@
   params.subscribe(async (p) => {
     let jwt = await supa.GetAccessToken();
 
+    console.log(`p is ${p}`)
+
     let query = `site=${p.siteid}&groupby=${groupby}&start=${p.start}&end=${p.end}&tz=${encodeURIComponent(tz)}`
     let url = `${apiHost}/query?${query}`
 
