@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
 
-  import bb, { bar, spline } from 'billboard.js';
+  import bb, { bar } from 'billboard.js';
   import dayjs from 'dayjs';
 
   import { randomInt } from './util.js';
@@ -19,16 +19,16 @@
       "data": {
         "x" : "x",
         "columns": [],
-        "type": spline(),
+        "type": bar(),
       },
       "axis": {
         "x": {
           "type": "timeseries",
           "tick": {
-            "format": (s) => dayjs.unix(s).format('MMM D'),
-            "culling": {
-              "max": 0,
-            }
+            "format": (s) => dayjs.unix(s).format('h A'),
+            // "culling": {
+            //   "max": 0,
+            // }
           }
         }
       },
@@ -41,7 +41,7 @@
     store.subscribe((value) => {
       chart.unload({
         "done": () => {
-          //chart.groups([value.map(x => x[0])]);
+          chart.groups([value.map(x => x[0])]);
           chart.load({"columns": value});
         }
       });

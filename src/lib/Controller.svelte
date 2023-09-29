@@ -7,7 +7,9 @@
 
   export let store;
 
-  let value, formattedValue;
+  // todo, this causes 2 queries to be issued at page load
+
+  let value = dayjs().toDate();
 
   let options = {
     //"dateFormat": "U",
@@ -31,8 +33,14 @@
 
 </script>
 
-PICK DATE: <Flatpickr {options} bind:value bind:formattedValue name="date" />
-
-DATE START IS {dayjs(value).startOf('day').unix()} AND END IS {dayjs(value).endOf('day').unix()}
-
-<button on:click={() => value = "2023-08-04T04:00:00.000Z"}>button</button>
+<div class="flex items-center">
+  <div class="m-2 bg-blue-200 cursor-pointer" on:click={() => value = dayjs(value).subtract(1, 'day').toDate()}>
+    BACK ONE DAY
+  </div>
+  <div class="m-2 bg-blue-200">
+    <Flatpickr {options} bind:value />
+  </div>
+  <div class="m-2 bg-blue-200 cursor-pointer" on:click={() => value = dayjs(value).add(1, 'day').toDate()}>
+    FORWARD ONE DAY
+  </div>
+</div>
