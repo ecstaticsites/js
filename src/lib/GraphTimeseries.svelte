@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
 
-  import bb, { bar } from 'billboard.js';
+  import bb, { bar, spline } from 'billboard.js';
   import dayjs from 'dayjs';
 
   import { randomInt } from './util.js';
@@ -19,7 +19,7 @@
       "data": {
         "x" : "x",
         "columns": [],
-        "type": bar(),
+        "type": spline(),
       },
       "axis": {
         "x": {
@@ -41,7 +41,7 @@
     store.subscribe((value) => {
       chart.unload({
         "done": () => {
-          chart.groups([value.map(x => x[0])]);
+          //chart.groups([value.map(x => x[0])]);
           chart.load({"columns": value});
         }
       });

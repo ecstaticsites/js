@@ -13,28 +13,26 @@
   import { currentSite } from './global.js';
 
   export let title;
-  export let siteid;
   export let groupby;
-  export let bucketby;
-
-  let isTimeseries = (bucketby == "") ? false : true;
+  export let timeseries;
+  export let params;
 
   let rawResult = writable([]);
-  let bbResult = derived(rawResult, ($res) => influxToBillboard($res, isTimeseries));
+  let bbResult = derived(rawResult, ($res) => influxToBillboard($res, timeseries));
 
   let supa = new Supabase();
+
+  let apiHost = import.meta.env.VITE_API_SERVER_URL;
+  let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   // this should maybe be $: {}, since we'll want it to run reactively when
   // the hostname prop is updated from outside this component
   // but I should look up how this works since I want to scope reactivity as small as possible
-  async function update() {
 
+  params.subscribe(async (p) => {
     let jwt = await supa.GetAccessToken();
 
-    let apiHost = import.meta.env.VITE_API_SERVER_URL;
-    let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-    let query = `site=${siteid}&groupby=${groupby}&bucketby=${bucketby}&tz=${encodeURIComponent(tz)}`
+    let query = `site=${p.siteid}&groupby=${groupby}&start=${p.start}&end=${p.end}&tz=${encodeURIComponent(tz)}`
     let url = `${apiHost}/query?${query}`
 
     console.log(url)
@@ -53,16 +51,16 @@
     console.log(json);
 
     rawResult.set(json);
-  }
+  })
 
 </script>
 
 <div class="w-full h-full flex flex-col">
   <div class="w-full h-16 pt-4 pl-4">
-    <button class="text-xl" on:click={update}>{title}</button>
+    <button class="text-xl">{title}</button>
   </div>
   <div class="w-full grow">
-    {#if isTimeseries}
+    {#if timeseries}
     <GraphTimeseries store={bbResult}/>
     {:else}
     <GraphCategorical store={bbResult}/>
