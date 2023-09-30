@@ -10,8 +10,6 @@
 
   import Supabase from './supabase.js'
 
-  import { currentSite } from './global.js';
-
   export let title;
   export let groupby;
   export let timeseries;
@@ -24,10 +22,6 @@
 
   let apiHost = import.meta.env.VITE_API_SERVER_URL;
   let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-  // this should maybe be $: {}, since we'll want it to run reactively when
-  // the hostname prop is updated from outside this component
-  // but I should look up how this works since I want to scope reactivity as small as possible
 
   params.subscribe(async (p) => {
     let jwt = await supa.GetAccessToken();
