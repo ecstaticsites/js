@@ -4,14 +4,13 @@
 
   import { onMount } from 'svelte';
 
-  import bb, { bar } from 'billboard.js';
+  import bb, { bar, areaSpline } from 'billboard.js';
   import dayjs from 'dayjs';
 
   import Supabase from './supabase.js'
 
   export let title;
   export let groupby;
-  export let timeseries;
   export let params;
 
   let chart;
@@ -62,7 +61,7 @@
           "x" : "x",
           "columns": bbResponse,
           "groups": [bbResponse.map(x => x[0])],
-          "type": bar(),
+          "type": areaSpline(),
         },
         "axis": {
           "x": {
@@ -73,7 +72,12 @@
           }
         },
         "legend": {
-          "show": false,
+          "show": true,
+        },
+        "spline": {
+          "interpolation": {
+            "type": "natural",
+          },
         },
       });
     });
