@@ -50,7 +50,7 @@
 </script>
 
 <div class="flex items-center">
-  <div class="m-2 bg-blue-200 cursor-pointer" on:click={() => value = dayjs(value).subtract(1, 'day').toDate()}>
+  <div class="m-2 bg-blue-200 cursor-pointer" on:click={() => value = dayjs(value).subtract(1, period).toDate()}>
     ⬅️
   </div>
   {#if months}
@@ -62,7 +62,7 @@
     <Flatpickr options={options} bind:value />
   </div>
   {/if}
-  <div class="m-2 bg-blue-200 cursor-pointer" on:click={() => value = dayjs(value).add(1, 'day').toDate()}>
+  <div class="m-2 bg-blue-200 cursor-pointer" on:click={() => value = dayjs(value).add(1, period).toDate()}>
     ➡️
   </div>
 </div>

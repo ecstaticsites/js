@@ -1,12 +1,11 @@
 <script>
 
-  // This is the graph PLUS mechanisms to feed it data etc
+  import { influxToBillboard, randomInt } from "./util.js";
 
-  import { writable, derived, get } from "svelte/store";
-  import { influxToBillboard } from "./util.js";
+  import { onMount } from 'svelte';
 
-  import GraphCategorical from "./GraphCategorical.svelte";
-  import GraphTimeseries from "./GraphTimeseries.svelte";
+  import bb, { bar } from 'billboard.js';
+  import dayjs from 'dayjs';
 
   import Supabase from './supabase.js'
 
@@ -15,39 +14,70 @@
   export let timeseries;
   export let params;
 
-  let rawResult = writable([]);
-  let bbResult = derived(rawResult, ($res) => influxToBillboard($res, timeseries));
+  let chart;
+  let chartId = `chart-${randomInt(10000)}`;
 
   let supa = new Supabase();
 
   let apiHost = import.meta.env.VITE_API_SERVER_URL;
   let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-  params.subscribe(async (p) => {
-    let jwt = await supa.GetAccessToken();
+  onMount(() => {
 
-    console.log(`p is ${p}`)
+    // set up the billboard chart
 
-    let query = `site=${p.siteid}&groupby=${groupby}&start=${p.start}&end=${p.end}&tz=${encodeURIComponent(tz)}`
-    let url = `${apiHost}/query?${query}`
 
-    console.log(url)
+    params.subscribe(async (p) => {
+      let jwt = await supa.GetAccessToken();
 
-    let response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${jwt}`
-      },
-      credentials: "include",
+      console.log(`p is ${p}`)
+
+      let timespanIsDay = (p.end - p.start <= 86400) ? true : false;
+
+      let query = `site=${p.siteid}&groupby=${groupby}&start=${p.start}&end=${p.end}&tz=${encodeURIComponent(tz)}`
+      let url = `${apiHost}/query?${query}`
+
+      console.log(url)
+
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${jwt}`
+        },
+        credentials: "include",
+      });
+
+      let json = await response.json();
+
+      console.log(json);
+
+      let bbResponse = influxToBillboard(json);
+
+      console.log(bbResponse);
+
+      chart = bb.generate({
+        "bindto": `#${chartId}`,
+        "data": {
+          "x" : "x",
+          "columns": bbResponse,
+          "groups": [bbResponse.map(x => x[0])],
+          "type": bar(),
+        },
+        "axis": {
+          "x": {
+            "type": "timeseries",
+            "tick": {
+              "format": (s) => dayjs.unix(s).format(timespanIsDay ? 'H:mm' : 'MMM D'),
+            }
+          }
+        },
+        "legend": {
+          "show": false,
+        },
+      });
     });
-
-    let json = await response.json();
-
-    console.log(json);
-
-    rawResult.set(json);
-  })
+  });
 
 </script>
 
@@ -56,10 +86,6 @@
     <button class="text-xl">{title}</button>
   </div>
   <div class="w-full grow">
-    {#if timeseries}
-    <GraphTimeseries store={bbResult}/>
-    {:else}
-    <GraphCategorical store={bbResult}/>
-    {/if}
+    <div class="h-full w-full" id={chartId}></div>
   </div>
 </div>
