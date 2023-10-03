@@ -22,6 +22,7 @@
     // but that requires the "hostname as table under user ID database" thing
     // that isn't sorted out yet due to bunny SNI whatever whatever
     // then hostname is selectable in the Controller
+    "hostname": "lalala",
     "siteid": params["id"],
     "start": dayjs().startOf('day').unix(),
     "end": dayjs().endOf('day').unix(),
@@ -33,7 +34,7 @@
   <Navbar/>
   <div class="w-full h-full flex justify-center" out:slide="{{duration: 250}}">
     <div class="w-[768px] flex flex-col">
-      <Controller store={backendParamStore}/>
+      <Controller siteid={params["id"]} store={backendParamStore}/>
       <div class="w-full">
         <Chart title="Hits By Status" params={backendParamStore} groupby="statuscode"/>
       </div>

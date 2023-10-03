@@ -7,7 +7,7 @@
   import bb, { bar, areaSpline } from 'billboard.js';
   import dayjs from 'dayjs';
 
-  import Supabase from './supabase.js'
+  import Supabase from './supabase.js';
 
   export let title;
   export let groupby;
@@ -16,6 +16,8 @@
   let chart;
   let chartId = `chart-${randomInt(10000)}`;
 
+  let loading = false;
+
   let supa = new Supabase();
 
   let apiHost = import.meta.env.VITE_API_SERVER_URL;
@@ -23,10 +25,10 @@
 
   onMount(() => {
 
-    // set up the billboard chart
-
-
     params.subscribe(async (p) => {
+
+      loading = true;
+
       let jwt = await supa.GetAccessToken();
 
       console.log(`p is ${p}`)
@@ -61,7 +63,7 @@
           "x" : "x",
           "columns": bbResponse,
           "groups": [bbResponse.map(x => x[0])],
-          "type": areaSpline(),
+          "type": bar(),
         },
         "axis": {
           "x": {
@@ -74,25 +76,31 @@
         "legend": {
           "show": true,
         },
-        "spline": {
-          "interpolation": {
-            "type": "natural",
-          },
-        },
-        "point": {
-          "r": 1.25,
-        }
       });
+
+      loading = false;
     });
   });
 
 </script>
 
-<div class="w-full h-full flex flex-col">
-  <div class="w-full h-16 pt-4 pl-4">
-    <button class="text-xl">{title}</button>
-  </div>
-  <div class="w-full grow">
-    <div class="h-full w-full" id={chartId}></div>
+<div class="w-full h-full flex flex-col mt-4">
+  <div class="grid w-full grow">
+    {#if loading}
+    <div class="flex justify-center items-center overlay h-96 w-full bg-opacity-50 backdrop-blur z-10">
+      <div role="status">
+        <svg aria-hidden="true" class="w-20 h-20 text-gray-200 animate-spin dark:text-gray-600 fill-black" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
+        </svg>
+      </div>
+    </div>
+    {/if}
+    <div class="content h-96 w-full z-0" id={chartId}></div>
   </div>
 </div>
+
+<style>
+.content, .overlay {
+  grid-area: 1 / 1;
+}
+</style>
