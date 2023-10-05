@@ -7,6 +7,8 @@
 
   import Supabase from './supabase.js';
 
+  import ControllerButton from './ControllerButton.svelte';
+
   export let siteid;
   export let store;
 
@@ -56,31 +58,37 @@
 
 </script>
 
-<div class="flex justify-between items-center bg-purple-200 mt-4 px-2">
+<div class="flex justify-between items-center mt-4 px-2">
   <div class="flex items-center">
-    {#await defaultAlias}
-    <div>Loading...</div>
-    {:then alias}
-    <div class="text-xl">{alias["hostname"]}</div>
-    {/await}
-    <div>M:</div>
-    <input type="checkbox" bind:checked={months} />
+    <div class="text-2xl border rounded-md cursor-pointer select-none px-2 mr-2">
+      {#await defaultAlias}
+      Loading...
+      {:then alias}
+      {alias["hostname"]}
+      {/await}
+    </div>
+    <ControllerButton icon="calendar-days" bind:pressed={months} action={() => months = !months}/>
+    <ControllerButton icon="cpu-chip"/>
   </div>
   <div class="flex items-center">
-    <div class="m-2 bg-blue-200 cursor-pointer" on:click={() => value = dayjs(value).subtract(1, period).toDate()}>
-      ⬅️
-    </div>
+    <ControllerButton icon="arrow-left" action={() => value = dayjs(value).subtract(1, period).toDate()}/>
     {#if months}
-    <div class="m-2 bg-blue-200">
+    <div class="border rounded-md cursor-pointer select-none px-2 py-1 mr-2">
       <Flatpickr options={monthOptions} bind:value />
     </div>
     {:else}
-    <div class="m-2 bg-blue-200">
+    <div class="border rounded-md cursor-pointer select-none px-2 py-1 mr-2">
       <Flatpickr options={options} bind:value />
     </div>
     {/if}
-    <div class="m-2 bg-blue-200 cursor-pointer" on:click={() => value = dayjs(value).add(1, period).toDate()}>
-      ➡️
-    </div>
+    <ControllerButton icon="arrow-right" action={() => value = dayjs(value).add(1, period).toDate()}/>
   </div>
 </div>
+
+<style>
+
+.flatpickr-input {
+  width: 24rem;
+}
+
+</style>

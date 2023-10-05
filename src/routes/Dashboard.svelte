@@ -38,7 +38,7 @@
     <div class="w-[768px] flex flex-col">
       <Controller siteid={params["id"]} store={backendParamStore}/>
       <div class="w-full">
-        <Chart title="Hits By Status" params={backendParamStore} groupby="statuscode"/>
+        <Chart params={backendParamStore} groupby="statuscode"/>
       </div>
       <!--
       <div class="w-full flex flex-row">
