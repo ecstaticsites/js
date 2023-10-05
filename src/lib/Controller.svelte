@@ -57,11 +57,15 @@
 </script>
 
 <div class="flex justify-between items-center bg-purple-200 mt-4 px-2">
-  {#await defaultAlias}
-  <div>Loading...</div>
-  {:then alias}
-  <div class="text-xl">{alias["hostname"]}</div>
-  {/await}
+  <div class="flex items-center">
+    {#await defaultAlias}
+    <div>Loading...</div>
+    {:then alias}
+    <div class="text-xl">{alias["hostname"]}</div>
+    {/await}
+    <div>M:</div>
+    <input type="checkbox" bind:checked={months} />
+  </div>
   <div class="flex items-center">
     <div class="m-2 bg-blue-200 cursor-pointer" on:click={() => value = dayjs(value).subtract(1, period).toDate()}>
       ⬅️
@@ -78,7 +82,5 @@
     <div class="m-2 bg-blue-200 cursor-pointer" on:click={() => value = dayjs(value).add(1, period).toDate()}>
       ➡️
     </div>
-    <div>M:</div>
-    <input type="checkbox" bind:checked={months} />
   </div>
 </div>

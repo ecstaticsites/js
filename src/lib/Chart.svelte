@@ -11,6 +11,7 @@
 
   export let title;
   export let groupby;
+  // a store which contains hostname and timespan for query
   export let params;
 
   let chart;

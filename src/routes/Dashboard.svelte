@@ -4,7 +4,7 @@
 
   import Chart from '../lib/Chart.svelte'
   import Controller from '../lib/Controller.svelte'
-  import Navbar from '../lib/Navbar.svelte'
+  import Sidebar from '../lib/Sidebar.svelte'
 
   import Supabase from '../lib/supabase.js'
 
@@ -30,8 +30,10 @@
 
 </script>
 
-<main class="w-screen h-screen flex flex-col">
-  <Navbar/>
+<main class="w-screen h-screen flex">
+  <div class="h-full w-80">
+    <Sidebar/>
+  </div>
   <div class="w-full h-full flex justify-center" out:slide="{{duration: 250}}">
     <div class="w-[768px] flex flex-col">
       <Controller siteid={params["id"]} store={backendParamStore}/>
