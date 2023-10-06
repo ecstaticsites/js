@@ -26,6 +26,7 @@
     "siteid": params["id"],
     "start": dayjs().startOf('day').unix(),
     "end": dayjs().endOf('day').unix(),
+    "bots": false,
   });
 
 </script>

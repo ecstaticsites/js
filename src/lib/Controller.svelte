@@ -1,5 +1,7 @@
 <script>
 
+  // todo, this all causes 3 queries to be issued at page load!
+
   import dayjs from 'dayjs';
 
   import Flatpickr from 'svelte-flatpickr';
@@ -12,41 +14,12 @@
   export let siteid;
   export let store;
 
-  let supa = new Supabase();
-
-  let aliases = supa.GetAliases(siteid);
-  let defaultAlias = aliases.then((arr) => arr.find((e) => e["is_default"]))
-
-  // todo, this causes 2 queries to be issued at page load
-
-  let value = dayjs().toDate();
-
-  let months = false;
-
-  $: period = months ? "month" : "day";
-
-  let options = {
+  let dayOptions = {
     "dateFormat": "F j, Y",
-    "onChange": function(selectedDates, dateStr) {
-      store.update((params) => {
-        params["start"] = dayjs(selectedDates[0]).startOf(period).unix();
-        params["end"] = dayjs(selectedDates[0]).endOf(period).unix();
-        console.log(params);
-        return params;
-      });
-    },
   };
 
   let monthOptions = {
-    //"dateFormat": "U",
-    "onChange": function(selectedDates, dateStr) {
-      store.update((params) => {
-        params["start"] = dayjs(selectedDates[0]).startOf(period).unix();
-        params["end"] = dayjs(selectedDates[0]).endOf(period).unix();
-        console.log(params);
-        return params;
-      });
-    },
+    "dateFormat": "F Y",
     "plugins": [
       new monthSelectPlugin({
         //shorthand: true, //defaults to false
@@ -55,6 +28,30 @@
       })
     ]
   };
+
+  let supa = new Supabase();
+
+  let aliases = supa.GetAliases(siteid);
+  let defaultAlias = aliases.then((arr) => arr.find((e) => e["is_default"]))
+
+  let value = dayjs().toDate();
+  let months = false;
+  let bots = false;
+  let period = 'day';
+
+  // reactivity is below! Runs the following whenever any of the above are updated
+  // (value is updated by the `bind` with the flatpickr and l/r buttons, months and
+  // bots by the two controller buttons)
+  $: {
+    console.log(`Controller triggered update, ${value} ${months} ${bots}`)
+    period = months ? "month" : "day";
+    store.update((params) => {
+      params["start"] = dayjs(value).startOf(period).unix();
+      params["end"] = dayjs(value).endOf(period).unix();
+      params["bots"] = bots;
+      return params;
+    });
+  }
 
 </script>
 
@@ -68,27 +65,18 @@
       {/await}
     </div>
     <ControllerButton icon="calendar-days" bind:pressed={months} action={() => months = !months}/>
-    <ControllerButton icon="cpu-chip"/>
+    <ControllerButton icon="cpu-chip" bind:pressed={bots} action={() => bots = !bots}/>
   </div>
   <div class="flex items-center">
     <ControllerButton icon="arrow-left" action={() => value = dayjs(value).subtract(1, period).toDate()}/>
-    {#if months}
     <div class="border rounded-md cursor-pointer select-none px-2 py-1 mr-2">
-      <Flatpickr options={monthOptions} bind:value />
+      <div class:hidden={!months}>
+        <Flatpickr options={monthOptions} bind:value />
+      </div>
+      <div class:hidden={months}>
+        <Flatpickr options={dayOptions} bind:value />
+      </div>
     </div>
-    {:else}
-    <div class="border rounded-md cursor-pointer select-none px-2 py-1 mr-2">
-      <Flatpickr options={options} bind:value />
-    </div>
-    {/if}
     <ControllerButton icon="arrow-right" action={() => value = dayjs(value).add(1, period).toDate()}/>
   </div>
 </div>
-
-<style>
-
-.flatpickr-input {
-  width: 24rem;
-}
-
-</style>
