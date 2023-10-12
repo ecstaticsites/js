@@ -6,6 +6,7 @@
 
   import Overview from './routes/Overview.svelte'
   import Dashboard from './routes/Dashboard.svelte'
+  import Upload from './routes/Upload.svelte'
   import Login from './routes/Login.svelte'
 
   import { IsLoggedIn } from './lib/supabase.js'
@@ -15,8 +16,12 @@
       component: Overview,
       conditions: [IsLoggedIn],
     }),
-    "/dashboard/:id": wrap({
+    "/site/:id/overview": wrap({
       component: Dashboard,
+      conditions: [IsLoggedIn],
+    }),
+    "/site/:id/upload": wrap({
+      component: Upload,
       conditions: [IsLoggedIn],
     }),
     "/login": wrap({

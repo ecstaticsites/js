@@ -33,9 +33,9 @@
 
 <main class="w-screen h-screen flex">
   <div class="h-full w-80">
-    <Sidebar/>
+    <Sidebar siteid={params["id"]} selected={"overview"}/>
   </div>
-  <div class="w-full h-full flex justify-center" out:slide="{{duration: 250}}">
+  <div class="w-full h-full flex justify-center">
     <div class="w-[768px] flex flex-col">
       <Controller siteid={params["id"]} store={backendParamStore}/>
       <div class="w-full">
