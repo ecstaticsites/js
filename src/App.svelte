@@ -7,30 +7,48 @@
   import Overview from './routes/Overview.svelte'
   import Dashboard from './routes/Dashboard.svelte'
   import Upload from './routes/Upload.svelte'
-  import Login from './routes/Login.svelte'
+  import SignIn from './routes/SignIn.svelte'
 
-  import { IsLoggedIn } from './lib/supabase.js'
+  import Supabase from './lib/supabase.js';
+
+  async function SignedInGuard(detail) {
+    console.log(`Checking auth before proceeding to page ${detail.location}...`)
+    let supa = new Supabase();
+    let res = await supa.IsSignedIn();
+    console.log(`Signed in: ${res}, ${res ? "continuing..." : "redirecting to signin..."}`)
+    return res;
+  }
+
+  async function AlwaysFailsGuard(detail) {
+    console.log(`Page ${detail.location} not recognized, redirecting to signin...`)
+    return false;
+  }
 
   const routes = {
     "/overview": wrap({
       component: Overview,
-      conditions: [IsLoggedIn],
+      conditions: [SignedInGuard],
     }),
     "/site/:id/overview": wrap({
       component: Dashboard,
-      conditions: [IsLoggedIn],
+      conditions: [SignedInGuard],
     }),
     "/site/:id/upload": wrap({
       component: Upload,
-      conditions: [IsLoggedIn],
+      conditions: [SignedInGuard],
     }),
-    "/login": wrap({
-      component: Login,
-      // todo -- make login page redirect to overview if logged in
+    "/signin": wrap({
+      component: SignIn,
+      // todo -- make signin page redirect to overview if logged in
       conditions: [],
+    }),
+    "*": wrap({
+      component: SignIn,
+      // condition always fails, so hits handler below and redirects
+      conditions: [AlwaysFailsGuard],
     }),
   }
 
 </script>
 
-<Router {routes} on:conditionsFailed={(event) => push("/login")}/>
+<Router {routes} on:conditionsFailed={(event) => push("/signin")}/>
