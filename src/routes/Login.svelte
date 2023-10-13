@@ -4,7 +4,7 @@
 
 </script>
 
-<main class="w-screen h-screen flex flex-col">
+<main class="w-screen h-screen flex justify-center items-center bg-stone-200">
     <LogIn/>
 </main>
 

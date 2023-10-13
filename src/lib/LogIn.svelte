@@ -1,33 +1,49 @@
 <script>
 
-  import { push } from 'svelte-spa-router'
-
-  import Supabase from './supabase.js'
+  import Supabase from './supabase.js';
 
   let email;
   let password;
 
+  let errorText = "";
+
+  let supa = new Supabase();
+
   async function logIn() {
-
-    let supa = new Supabase();
-
-    let { data, error } = await supa.client.auth.signInWithPassword({
-      "email": email,
-      "password": password,
-    });
-
-    console.log(data)
-    console.log(error)
+    try {
+      await supa.SignIn(email, password);
+    } catch (e) {
+      errorText = e.message;
+    }
   }
 
 </script>
 
-<!-- todo, clean this the fuck up -->
-<div class="w-full h-full flex items-center justify-center">
-  <div class="w-64 h-96 bg-red-200 p-8">
-    <input class="w-full" placeholder="email" bind:value={email}>
-    <input class="w-full" placeholder="password" bind:value={password}>
-    <button on:click={logIn}>CLICK ME</button>
-    <button on:click={() => push('/dashboard')}>Go to dash</button>
+<div class="w-80 flex flex-col justify-center items-start bg-white shadow-md rounded p-8">
+  <div class="mx-auto w-32 h-24 mb-8 bg-orange-200">LOGO</div>
+  <form class="w-full" on:submit|preventDefault={logIn}>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+        Email Address
+      </label>
+      <input class="shadow border {errorText ? "border-red-500" : ""} rounded w-full py-2 px-3 text-gray-700" id="username" type="text" bind:value={email}>
+    </div>
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+        Password
+      </label>
+      <input class="shadow border {errorText ? "border-red-500" : ""} rounded w-full py-2 px-3 text-gray-700" id="password" type="password" bind:value={password}>
+      {#if errorText}
+      <p class="text-red-500 text-xs italic mt-2">{errorText}</p>
+      {/if}
+    </div>
+    <div class="flex flex-row items-center justify-end">
+    <button class="ml-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+      Sign In
+    </button>
+    </div>
+  </form>
+  <div class="text-xs mx-auto mt-8">
+    No account? <a href="#/signup">Sign up!</a>
   </div>
 </div>

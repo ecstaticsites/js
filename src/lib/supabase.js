@@ -1,5 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
+// needed for the redirect after login, could live somewhere else though
+import { push } from 'svelte-spa-router';
+
 export default class Supabase {
 
   // basic singleton pattern, works best if we only have one of these
@@ -16,6 +19,47 @@ export default class Supabase {
     let supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV3d2NjYmdqbnVsZmdjdmZyc3ZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTM1ODE2ODUsImV4cCI6MjAwOTE1NzY4NX0.gI3YdNSC5GMkda2D2QPRMvnBdaMOS2ynfFKxis5-WKs';
 
     this.client = createClient(supabaseUrl, supabaseKey);
+  }
+
+  async SignUp() {}
+
+  async SignIn(email, pw) {
+
+    console.log(`Attempting to sign in user with email ${email}...`);
+
+    let { data, error } = await this.client.auth.signInWithPassword({
+      "email": email,
+      "password": pw,
+    });
+
+    if (error) {
+      throw new Error(`${error["name"]}: ${error["message"]}`);
+    }
+
+    console.log(`Successfully signed in as user: ${data}`);
+
+    push("/overview");
+
+    return;
+  }
+
+  // signs out the currently-logged-in user
+  async SignOut() {
+
+    console.log("Signing out the current user...");
+
+    let { error } = await this.client.auth.signOut();
+
+    if (error) {
+      throw new Error(`Sign out was unsuccessful: ${error}`);
+    }
+
+    console.log("Sign out was successful, reloading...");
+
+    // reload the page so they see the effects of their actions
+    location.reload();
+
+    return;
   }
 
   // gets the current JWT for the currently-logged-in user
