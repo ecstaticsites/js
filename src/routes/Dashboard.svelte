@@ -1,5 +1,7 @@
 <script>
 
+  import { theme } from "../lib/usersettings.js";
+
   import { writable } from "svelte/store";
 
   import Chart from '../lib/Chart.svelte'
@@ -31,7 +33,7 @@
 
 </script>
 
-<main class="w-screen h-screen flex bg-brown-0">
+<main class="w-screen h-screen flex bg-{theme}-0">
   <div class="h-full w-80">
     <Sidebar siteid={params["id"]} selected={"overview"}/>
   </div>
