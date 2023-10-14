@@ -43,7 +43,7 @@
     </button>
     </div>
   </form>
-  <div class="text-xs mx-auto mt-8">
+  <div class="text-xs mx-auto mt-6">
     No account? <a href="#/signup">Sign up!</a>
   </div>
 </div>

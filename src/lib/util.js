@@ -7,7 +7,6 @@ export function influxToBillboard(raw) {
   // todo, any kind of error handling around this
   let series = raw["results"][0]["series"];
 
-
   let names = series.map((s) => Object.values(s["tags"])[0]);
   names = names.map((n) => (n == "") ? "(none)" : n);
   let values = series.map((s) => s["values"].map((v) => v[1]));

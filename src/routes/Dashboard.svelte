@@ -31,29 +31,18 @@
 
 </script>
 
-<main class="w-screen h-screen flex">
+<main class="w-screen h-screen flex bg-brown-0">
   <div class="h-full w-80">
     <Sidebar siteid={params["id"]} selected={"overview"}/>
   </div>
-  <div class="w-full h-full flex justify-center">
-    <div class="w-[768px] flex flex-col">
-      <Controller siteid={params["id"]} store={backendParamStore}/>
-      <div class="w-full">
-        <Chart params={backendParamStore} groupby="statuscode"/>
-      </div>
-      <!--
-      <div class="w-full flex flex-row">
-        <div class="w-1/3">
-          <Chart title="Hits by Device" params={backendParamStore} groupby="device" timeseries={false}/>
-        </div>
-        <div class="w-1/3">
-          <Chart title="Hits by Browser" params={backendParamStore} groupby="browser" timeseries={false}/>
-        </div>
-        <div class="w-1/3">
-          <Chart title="Hits by OS" params={backendParamStore} groupby="os" timeseries={false}/>
+  <div class="h-full w-full pr-8 py-4">
+    <div class="w-full h-full flex justify-center bg-white shadow-lg rounded-sm">
+      <div class="w-[768px] flex flex-col">
+        <Controller siteid={params["id"]} store={backendParamStore}/>
+        <div class="w-full">
+          <Chart params={backendParamStore} groupby="statuscode"/>
         </div>
       </div>
-      -->
     </div>
   </div>
 </main>

@@ -36,7 +36,7 @@ export default class Supabase {
       throw new Error(`${error["name"]}: ${error["message"]}`);
     }
 
-    console.log(`Successfully signed in as user: ${data}`);
+    console.log(`Successfully signed in as user: ${JSON.stringify(data)}`);
 
     push("/overview");
 

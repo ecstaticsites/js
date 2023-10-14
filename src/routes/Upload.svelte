@@ -49,21 +49,23 @@
   }
 </script>
 
-<main class="w-screen h-screen flex">
+<main class="w-screen h-screen flex bg-brown-0">
   <div class="h-full w-80">
     <Sidebar siteid={params["id"]} selected={"upload"}/>
   </div>
-  <div class="w-full h-full flex justify-center">
-    <label for="files">Upload a folder:</label>
-    <input bind:files type="file" id="files" webkitdirectory="" directory="">
-    <div>
-      {#if files}
-      <h2>Selected files:</h2>
-        {#each Array.from(files) as file}
-        <p>{file.webkitRelativePath} ({file.size} bytes)</p>
-        {/each}
-      {/if}
+  <div class="h-full w-full pr-8 py-4">
+    <div class="w-full h-full flex justify-center bg-white shadow-lg rounded-sm">
+      <label for="files">Upload a folder:</label>
+      <input bind:files type="file" id="files" webkitdirectory="" directory="">
+      <div>
+        {#if files}
+        <h2>Selected files:</h2>
+          {#each Array.from(files) as file}
+          <p>{file.webkitRelativePath} ({file.size} bytes)</p>
+          {/each}
+        {/if}
+      </div>
+      <div class="bg-yellow-200 h-12 cursor-pointer" on:click={upload}>GOGOGO</div>
     </div>
-    <div class="bg-yellow-200 h-12 cursor-pointer" on:click={upload}>GOGOGO</div>
   </div>
 </main>
