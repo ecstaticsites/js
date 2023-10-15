@@ -29,10 +29,13 @@
     ]
   };
 
+  let selectedHostname = "";
+
   let supa = new Supabase();
 
   let aliases = supa.GetAliases(siteid);
-  let defaultAlias = aliases.then((arr) => arr.find((e) => e["is_default"]))
+  let defaultAlias = aliases.then((arr) => arr.find((e) => e["is_default"]));
+  defaultAlias.then((alias) => selectedHostname = alias["hostname"]);
 
   let value = dayjs().toDate();
   let months = false;
@@ -43,9 +46,10 @@
   // (value is updated by the `bind` with the flatpickr and l/r buttons, months and
   // bots by the two controller buttons)
   $: {
-    console.log(`Controller triggered update, ${value} ${months} ${bots}`)
+    console.log(`Controller triggered update, ${selectedHostname} ${value} ${months} ${bots}`)
     period = months ? "month" : "day";
     store.update((params) => {
+      params["hostname"] = selectedHostname;
       params["start"] = dayjs(value).startOf(period).unix();
       params["end"] = dayjs(value).endOf(period).unix();
       params["bots"] = bots;
@@ -58,11 +62,11 @@
 <div class="flex justify-between items-center mt-4 px-2">
   <div class="flex items-center">
     <div class="text-2xl border rounded-md cursor-pointer select-none px-2 mr-2">
-      {#await defaultAlias}
+      {#if selectedHostname == ""}
       Loading...
-      {:then alias}
-      {alias["hostname"]}
-      {/await}
+      {:else}
+      {selectedHostname}
+      {/if}
     </div>
     <ControllerButton icon="calendar-days" bind:pressed={months} action={() => months = !months}/>
     <ControllerButton icon="cpu-chip" bind:pressed={bots} action={() => bots = !bots}/>
