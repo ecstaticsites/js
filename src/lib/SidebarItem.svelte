@@ -25,7 +25,7 @@
 
 </script>
 
-<div class="w-auto mx-4 h-9 mb-1 flex justify-start items-center {active ? `bg-${theme}-1` : `hover:bg-${theme}-1 active:bg-${theme}-2`} text-{theme}-12 rounded-md cursor-pointer select-none" on:click={action}>
+<div class="w-auto mx-4 h-9 mb-1 flex justify-start items-center {active ? `bg-${theme}-1 active:bg-${theme}-2` : `hover:bg-${theme}-1 active:bg-${theme}-2`} text-{theme}-12 rounded-md cursor-pointer select-none" on:click={action}>
   <div class="px-2">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
       <path stroke-linecap="round" stroke-linejoin="round" d="{iconMap[icon]}" />
