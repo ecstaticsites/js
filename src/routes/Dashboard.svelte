@@ -33,7 +33,7 @@
     <Sidebar siteid={params["id"]} selected={"overview"}/>
   </div>
   <div class="h-full w-full">
-    <div class="w-full h-full flex justify-center bg-white drop-shadow-lg rounded-sm">
+    <div class="w-full h-full flex justify-center bg-white shadow-xl rounded-sm">
       <div class="w-[768px] flex flex-col">
         <Controller siteid={params["id"]} store={backendParamStore}/>
         <div class="w-full">

@@ -7,8 +7,11 @@ export default {
       variants: ['hover', 'active'],
     },
     {
-      pattern: /text-(gray|red|pink|purple|violet|indigo|blue|cyan|teal|green|lime|yellow|orange|choco|brown|sand|camo|jungle)-(0|1|2|10|11|12)/,
+      pattern: /text-(gray|red|pink|purple|violet|indigo|blue|cyan|teal|green|lime|yellow|orange|choco|brown|sand|camo|jungle)-(0|12)/,
       variants: ['hover', 'active'],
+    },
+    {
+      pattern: /fill-(gray|red|pink|purple|violet|indigo|blue|cyan|teal|green|lime|yellow|orange|choco|brown|sand|camo|jungle)-(10)/,
     },
   ],
   theme: {
