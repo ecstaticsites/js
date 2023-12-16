@@ -21,7 +21,25 @@ export default class Supabase {
     this.client = createClient(supabaseUrl, supabaseKey);
   }
 
-  async SignUp() {}
+  async SignUp(email, pw) {
+
+    console.log(`Attempting to sign up user with email ${email}...`);
+
+    let { data, error } = await this.client.auth.signUp({
+      "email": email,
+      "password": pw,
+    });
+
+    if (error) {
+      throw new Error(`${error["name"]}: ${error["message"]}`);
+    }
+
+    console.log(`Successfully signed up user: ${JSON.stringify(data)}`);
+
+    push(`/confirm?email=${encodeURIComponent(email)}`);
+
+    return;
+  }
 
   async SignIn(email, pw) {
 

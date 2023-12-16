@@ -20,25 +20,25 @@
 </script>
 
 <div class="w-80 flex flex-col justify-center items-start bg-white shadow-md rounded p-8">
-  <div class="mx-auto w-32 h-24 mb-8 bg-orange-200">LOGO</div>
+  <div class="mx-auto w-32 h-24 mb-8 bg-orange-2">LOGO</div>
   <form class="w-full" on:submit|preventDefault={logIn}>
     <div class="mb-4">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+      <label class="block text-gray-8 text-sm font-bold mb-2" for="username">
         Email Address
       </label>
-      <input class="shadow border {errorText ? "border-red-500" : ""} rounded w-full py-2 px-3 text-gray-700" id="username" type="text" bind:value={email}>
+      <input class="shadow border {errorText ? "border-red-5" : ""} rounded w-full py-2 px-3 text-gray-8" id="username" type="text" bind:value={email}>
     </div>
     <div class="mb-6">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+      <label class="block text-gray-8 text-sm font-bold mb-2" for="password">
         Password
       </label>
-      <input class="shadow border {errorText ? "border-red-500" : ""} rounded w-full py-2 px-3 text-gray-700" id="password" type="password" bind:value={password}>
+      <input class="shadow border {errorText ? "border-red-5" : ""} rounded w-full py-2 px-3 text-gray-8" id="password" type="password" bind:value={password}>
       {#if errorText}
-      <p class="text-red-500 text-xs italic mt-2">{errorText}</p>
+      <p class="text-red-5 text-xs italic mt-2">{errorText}</p>
       {/if}
     </div>
     <div class="flex flex-row items-center justify-end">
-    <button class="ml-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+    <button class="ml-auto bg-blue-5 hover:bg-blue-7 text-white font-bold py-2 px-4 rounded" type="submit">
       Sign In
     </button>
     </div>

@@ -8,6 +8,8 @@
   import Dashboard from './routes/Dashboard.svelte'
   import Upload from './routes/Upload.svelte'
   import SignIn from './routes/SignIn.svelte'
+  import SignUp from './routes/SignUp.svelte'
+  import Confirm from './routes/Confirm.svelte'
 
   import Supabase from './lib/supabase.js';
 
@@ -40,6 +42,14 @@
     "/signin": wrap({
       component: SignIn,
       // todo -- make signin page redirect to overview if logged in
+      conditions: [],
+    }),
+    "/signup": wrap({
+      component: SignUp,
+      conditions: [],
+    }),
+    "/confirm": wrap({
+      component: Confirm,
       conditions: [],
     }),
     "*": wrap({
