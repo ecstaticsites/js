@@ -98,6 +98,20 @@ export default class Supabase {
     return data["session"]["access_token"];
   }
 
+  // gets the data for a single site ID
+  async GetSite(site) {
+
+    console.log(`Getting from supabase the data for site ID ${site}...`);
+
+    let { data, error } = await this.client.from('site').select().eq('id', site).single();
+
+    if (error) {
+      throw new Error(`Couldn't get data from supabase: ${error}`);
+    }
+
+    return data;
+  }
+
   // gets the list of sites created by the currently-logged-in user
   async GetSites() {
 

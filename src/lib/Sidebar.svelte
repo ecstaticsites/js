@@ -8,6 +8,7 @@
   import Supabase from './supabase.js';
 
   export let siteid = "";
+  export let nickname = "";
   export let selected = "";
 
   let supa = new Supabase();
@@ -21,7 +22,7 @@
         <div class="w-fit mx-auto mb-4"><Logo/></div>
         <SidebarItem text="Create" icon="plus" action={() => push(`/site/${siteid}/upload`)} active={selected == "upload"}/>
         <div class="px-2 py-2 mb-1"><hr/></div>
-        <SidebarItem text="CBNR Landing" icon="window" active={true}/>
+        <SidebarItem text="{nickname}" icon="window" active={true}/>
         <div class="px-2 py-2 mb-1"><hr/></div>
         <SidebarItem text="Overview" icon="chart-bar" action={() => push(`/site/${siteid}/overview`)} active={selected == "overview"}/>
         <SidebarItem text="Clients" icon="users" active={selected == "clients"}/>
