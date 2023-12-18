@@ -1,5 +1,6 @@
 <script>
 
+  import Logo from '../lib/Logo.svelte'
   import SidebarItem from '../lib/SidebarItem.svelte'
 
   import { push } from 'svelte-spa-router'
@@ -16,11 +17,11 @@
 <div class="w-full h-full px-4 py-2">
   <div class="w-full h-full">
     <div class="w-full h-full flex flex-col justify-between">
-      <div class="w-full">
-        <div class="mx-auto w-32 h-16 my-2 bg-orange-2">LOGO</div>
-        <SidebarItem text="CBNR Landing" icon="window" active={false}/>
+      <div class="w-full pt-2">
+        <div class="w-fit mx-auto mb-4"><Logo/></div>
+        <SidebarItem text="Create" icon="plus" action={() => push(`/site/${siteid}/upload`)} active={selected == "upload"}/>
         <div class="px-2 py-2 mb-1"><hr/></div>
-        <SidebarItem text="Upload" icon="arrow-up-tray" action={() => push(`/site/${siteid}/upload`)} active={selected == "upload"}/>
+        <SidebarItem text="CBNR Landing" icon="window" active={true}/>
         <div class="px-2 py-2 mb-1"><hr/></div>
         <SidebarItem text="Overview" icon="chart-bar" action={() => push(`/site/${siteid}/overview`)} active={selected == "overview"}/>
         <SidebarItem text="Clients" icon="users" active={selected == "clients"}/>

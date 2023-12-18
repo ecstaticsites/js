@@ -1,5 +1,6 @@
 <script>
 
+  import Logo from '../lib/Logo.svelte'
   import Supabase from './supabase.js';
 
   let email;
@@ -35,7 +36,9 @@
 </script>
 
 <div class="w-80 flex flex-col justify-center items-start bg-white shadow-md rounded p-8">
-  <div class="mx-auto w-32 h-24 mb-8 bg-orange-2">LOGO</div>
+  <div class="mx-auto mb-8">
+    <Logo/>
+  </div>
   <form class="w-full" on:submit|preventDefault={signUp}>
     <div class="mb-4">
       <label class="block text-gray-8 text-sm font-bold mb-2" for="username">
