@@ -11,6 +11,10 @@ export default {
       variants: ['hover', 'active'],
     },
     {
+      pattern: /outline-(gray|red|pink|purple|violet|indigo|blue|cyan|teal|green|lime|yellow|orange|choco|brown|sand|camo|jungle)-(3)/,
+      variants: ['focus'],
+    },
+    {
       pattern: /fill-(gray|red|pink|purple|violet|indigo|blue|cyan|teal|green|lime|yellow|orange|choco|brown|sand|camo|jungle)-(10)/,
     },
   ],

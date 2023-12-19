@@ -22,7 +22,7 @@
 
   let supa = new Supabase();
 
-  let apiHost = import.meta.env.VITE_API_SERVER_URL;
+  let apiHost = import.meta.env.VITE_QUERY_SERVER_URL;
   let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   onMount(() => {

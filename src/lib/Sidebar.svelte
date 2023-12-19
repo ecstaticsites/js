@@ -20,22 +20,23 @@
     <div class="w-full h-full flex flex-col justify-between">
       <div class="w-full pt-2">
         <div class="w-fit mx-auto mb-4"><Logo/></div>
-        <SidebarItem text="Create" icon="plus" action={() => push(`/site/${siteid}/upload`)} active={selected == "upload"}/>
+        <SidebarItem text="Create" icon="plus" action={() => push(`/create`)} active={selected == "create"} enabled={true}/>
         <div class="px-2 py-2 mb-1"><hr/></div>
-        <SidebarItem text="{nickname}" icon="window" active={true}/>
+        <!-- TODO, find a way to make this one stand out without always marking it as "active" (maybe bold?) -->
+        <SidebarItem text="{(nickname != "") ? nickname : "(none selected)"}" action={() => push(`/overview`)} icon="window" active={selected == "sites"} enabled={true}/>
         <div class="px-2 py-2 mb-1"><hr/></div>
-        <SidebarItem text="Overview" icon="chart-bar" action={() => push(`/site/${siteid}/overview`)} active={selected == "overview"}/>
-        <SidebarItem text="Clients" icon="users" active={selected == "clients"}/>
-        <SidebarItem text="Pages" icon="newspaper" active={selected == "pages"}/>
-        <SidebarItem text="Errors" icon="exclamation-triangle" active={selected == "errors"}/>
+        <SidebarItem text="Overview" icon="chart-bar" action={() => push(`/site/${siteid}/overview`)} active={selected == "overview"} enabled={siteid != ""}/>
+        <SidebarItem text="Clients" icon="users" active={selected == "clients"} enabled={siteid != ""}/>
+        <SidebarItem text="Pages" icon="newspaper" active={selected == "pages"} enabled={siteid != ""}/>
+        <SidebarItem text="Errors" icon="exclamation-triangle" active={selected == "errors"} enabled={siteid != ""}/>
         <div class="px-2 py-2 mb-1"><hr/></div>
-        <SidebarItem text="Monitoring" icon="envelope" active={selected == "monitoring"}/>
-        <SidebarItem text="Settings" icon="cog" active={selected == "settings"}/>
+        <SidebarItem text="Monitoring" icon="envelope" active={selected == "monitoring"} enabled={false}/>
+        <SidebarItem text="Settings" icon="cog" active={selected == "settings"} enabled={false}/>
       </div>
       <div class="w-full">
-        <SidebarItem text="Support" icon="information-circle" active={false}/>
-        <SidebarItem text="My Account" icon="user-circle" active={false}/>
-        <SidebarItem text="Sign Out" icon="x-circle" action={() => supa.SignOut()} active={false}/>
+        <SidebarItem text="Support" icon="information-circle" active={false} enabled={true}/>
+        <SidebarItem text="My Account" icon="user-circle" active={false} enabled={true}/>
+        <SidebarItem text="Sign Out" icon="x-circle" action={() => supa.SignOut()} active={false} enabled={true}/>
       </div>
     </div>
   </div>

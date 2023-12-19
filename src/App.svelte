@@ -5,6 +5,7 @@
   import { wrap } from 'svelte-spa-router/wrap'
 
   import Overview from './routes/Overview.svelte'
+  import Create from './routes/Create.svelte'
   import Dashboard from './routes/Dashboard.svelte'
   import Upload from './routes/Upload.svelte'
   import SignIn from './routes/SignIn.svelte'
@@ -29,6 +30,10 @@
   const routes = {
     "/overview": wrap({
       component: Overview,
+      conditions: [SignedInGuard],
+    }),
+    "/create": wrap({
+      component: Create,
       conditions: [SignedInGuard],
     }),
     "/site/:id/overview": wrap({
