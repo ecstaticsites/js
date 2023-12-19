@@ -36,7 +36,7 @@ export default class Supabase {
 
     console.log(`Successfully signed up user: ${JSON.stringify(data)}`);
 
-    push(`/confirm?email=${encodeURIComponent(email)}`);
+    push(`/signupok?email=${encodeURIComponent(email)}`);
 
     return;
   }

@@ -6,11 +6,12 @@
 
   import Overview from './routes/Overview.svelte'
   import Create from './routes/Create.svelte'
+  import CreateOk from './routes/CreateOk.svelte'
   import Dashboard from './routes/Dashboard.svelte'
   import Upload from './routes/Upload.svelte'
   import SignIn from './routes/SignIn.svelte'
   import SignUp from './routes/SignUp.svelte'
-  import Confirm from './routes/Confirm.svelte'
+  import SignUpOk from './routes/SignUpOk.svelte'
 
   import Supabase from './lib/supabase.js';
 
@@ -36,6 +37,10 @@
       component: Create,
       conditions: [SignedInGuard],
     }),
+    "/createok": wrap({
+      component: CreateOk,
+      conditions: [SignedInGuard],
+    }),
     "/site/:id/overview": wrap({
       component: Dashboard,
       conditions: [SignedInGuard],
@@ -53,8 +58,8 @@
       component: SignUp,
       conditions: [],
     }),
-    "/confirm": wrap({
-      component: Confirm,
+    "/signupok": wrap({
+      component: SignUpOk,
       conditions: [],
     }),
     "*": wrap({
