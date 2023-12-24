@@ -23,7 +23,7 @@
         <SidebarItem text="Create" icon="plus" action={() => push(`/create`)} active={selected == "create"} enabled={true}/>
         <div class="px-2 py-2 mb-1"><hr/></div>
         <!-- TODO, find a way to make this one stand out without always marking it as "active" (maybe bold?) -->
-        <SidebarItem text="{(nickname != "") ? nickname : "(none selected)"}" action={() => push(`/overview`)} icon="window" active={selected == "sites"} enabled={true}/>
+        <SidebarItem text="{(nickname != "") ? nickname : "(none selected)"}" action={() => push(`/sites`)} icon="window" active={selected == "sites"} enabled={true}/>
         <div class="px-2 py-2 mb-1"><hr/></div>
         <SidebarItem text="Overview" icon="chart-bar" action={() => push(`/site/${siteid}/overview`)} active={selected == "overview"} enabled={siteid != ""}/>
         <SidebarItem text="Clients" icon="users" active={selected == "clients"} enabled={siteid != ""}/>

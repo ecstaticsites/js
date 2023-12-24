@@ -1,1 +1,1 @@
-export const theme = "choco";
+export const theme = "indigo";

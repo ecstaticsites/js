@@ -56,7 +56,7 @@ export default class Supabase {
 
     console.log(`Successfully signed in as user: ${JSON.stringify(data)}`);
 
-    push("/overview");
+    push("/sites");
 
     return;
   }

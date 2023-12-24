@@ -27,8 +27,8 @@
           <div>For more information, check out <a href="#">the publishing docs</a>!</div>
         </div>
         <div class="flex flex-row justify-end">
-          <button class="bg-{theme}-10 hover:bg-{theme}-11 active:bg-{theme}-12 text-white font-bold py-2 px-4 rounded" on:click={() => push("/overview")}>
-            Back to Overview
+          <button class="bg-{theme}-10 hover:bg-{theme}-11 active:bg-{theme}-12 text-white font-bold py-2 px-4 rounded" on:click={() => push("/sites")}>
+            Back to Sites
           </button>
         </div>
       </div>

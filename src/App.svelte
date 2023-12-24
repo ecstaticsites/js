@@ -4,10 +4,10 @@
   import { push } from 'svelte-spa-router'
   import { wrap } from 'svelte-spa-router/wrap'
 
-  import Overview from './routes/Overview.svelte'
+  import Sites from './routes/Sites.svelte'
   import Create from './routes/Create.svelte'
   import CreateOk from './routes/CreateOk.svelte'
-  import Dashboard from './routes/Dashboard.svelte'
+  import Overview from './routes/Overview.svelte'
   import Upload from './routes/Upload.svelte'
   import SignIn from './routes/SignIn.svelte'
   import SignUp from './routes/SignUp.svelte'
@@ -29,8 +29,8 @@
   }
 
   const routes = {
-    "/overview": wrap({
-      component: Overview,
+    "/sites": wrap({
+      component: Sites,
       conditions: [SignedInGuard],
     }),
     "/create": wrap({
@@ -42,7 +42,7 @@
       conditions: [SignedInGuard],
     }),
     "/site/:id/overview": wrap({
-      component: Dashboard,
+      component: Overview,
       conditions: [SignedInGuard],
     }),
     "/site/:id/upload": wrap({
