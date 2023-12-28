@@ -31,7 +31,7 @@
         <SidebarItem text="Errors" icon="exclamation-triangle" active={selected == "errors"} enabled={siteid != ""}/>
         <div class="px-2 py-2 mb-1"><hr/></div>
         <SidebarItem text="Monitoring" icon="envelope" active={selected == "monitoring"} enabled={false}/>
-        <SidebarItem text="Settings" icon="cog" active={selected == "settings"} enabled={false}/>
+        <SidebarItem text="Settings" icon="cog" action={() => push(`/site/${siteid}/settings`)} active={selected == "settings"} enabled={siteid != ""}/>
       </div>
       <div class="w-full">
         <SidebarItem text="Support" icon="information-circle" active={false} enabled={true}/>

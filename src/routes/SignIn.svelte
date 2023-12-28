@@ -2,6 +2,7 @@
 
   import Logo from '../lib/Logo.svelte'
   import Supabase from '../lib/supabase.js';
+  import SubmitButton from '../lib/SubmitButton.svelte';
 
   let email;
   let password;
@@ -41,10 +42,8 @@
         <p class="text-red-5 text-xs italic mt-2">{errorText}</p>
         {/if}
       </div>
-      <div class="flex flex-row items-center justify-end">
-      <button class="ml-auto bg-blue-5 hover:bg-blue-7 text-white font-bold py-2 px-4 rounded" type="submit">
-        Sign In
-      </button>
+      <div class="flex flex-row justify-end">
+        <SubmitButton>Sign In</SubmitButton>
       </div>
     </form>
     <div class="text-xs mx-auto mt-6">

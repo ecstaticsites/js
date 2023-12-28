@@ -12,6 +12,7 @@
   import SignIn from './routes/SignIn.svelte'
   import SignUp from './routes/SignUp.svelte'
   import SignUpOk from './routes/SignUpOk.svelte'
+  import SiteSettings from './routes/SiteSettings.svelte'
 
   import Supabase from './lib/supabase.js';
 
@@ -47,6 +48,10 @@
     }),
     "/site/:id/upload": wrap({
       component: Upload,
+      conditions: [SignedInGuard],
+    }),
+    "/site/:id/settings": wrap({
+      component: SiteSettings,
       conditions: [SignedInGuard],
     }),
     "/signin": wrap({
