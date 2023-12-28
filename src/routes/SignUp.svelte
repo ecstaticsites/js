@@ -1,6 +1,7 @@
 <script>
 
-  import Logo from '../lib/Logo.svelte'
+  import Logo from '../lib/Logo.svelte';
+  import Input from '../lib/Input.svelte';
   import Supabase from '../lib/supabase.js';
   import SubmitButton from '../lib/SubmitButton.svelte';
 
@@ -42,28 +43,13 @@
       <Logo/>
     </div>
     <form class="w-full" on:submit|preventDefault={signUp}>
-      <div class="mb-4">
-        <label class="block text-gray-8 text-sm font-bold mb-2" for="username">
-          Email Address
-        </label>
-        <input class="shadow border {errorText ? "border-red-5" : ""} rounded w-full py-2 px-3 text-gray-8" id="username" type="text" bind:value={email}>
-      </div>
-      <div class="mb-4">
-        <label class="block text-gray-8 text-sm font-bold mb-2" for="passwordOne">
-          Password
-        </label>
-        <input class="shadow border {errorText ? "border-red-5" : ""} rounded w-full py-2 px-3 text-gray-8" id="passwordOne" type="password" bind:value={passwordOne}>
-      </div>
-      <div class="mb-6">
-        <label class="block text-gray-8 text-sm font-bold mb-2" for="passwordTwo">
-          Password (One More Time)
-        </label>
-        <input class="shadow border {errorText ? "border-red-5" : ""} rounded w-full py-2 px-3 text-gray-8" id="passwordTwo" type="password" bind:value={passwordTwo}>
+      <Input label="Email Address" bind:value={email} bind:error={errorText}/>
+      <Input label="Password" type="password" bind:value={passwordOne} bind:error={errorText}/>
+      <Input label="Password (One More Time)" type="password" bind:value={passwordTwo} bind:error={errorText}/>
+      <div class="mt-6 flex flex-col items-end">
         {#if errorText}
-        <p class="text-red-5 text-xs italic mt-2">{errorText}</p>
+        <div class="text-red-5 text-xs italic mb-2">{errorText}</div>
         {/if}
-      </div>
-      <div class="flex flex-row justify-end">
         <SubmitButton>Sign Up</SubmitButton>
       </div>
     </form>
@@ -72,4 +58,3 @@
     </div>
   </div>
 </main>
-
