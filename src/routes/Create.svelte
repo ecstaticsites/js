@@ -16,13 +16,15 @@
 
   async function create() {
 
+    // todo, factor this out into CBNR lib similar to the supabase lib
+
     if (nickname == "") {
       errorText = "Nickname cannot be empty";
       return
     }
 
     let jwt = await supa.GetAccessToken();
-    let url = `${apiHost}/new`
+    let url = `${apiHost}/site`
     let data = {"nickname": nickname}
     let response = null;
 

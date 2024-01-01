@@ -18,18 +18,21 @@
 
 </script>
 
-<div class="w-full h-12 mt-2 bg-{theme}-1 rounded hover:shadow-md grid grid-cols-3 px-4">
-  <div class="flex justify-start items-center">
-    📍 {site["nickname"]}
-  </div>
-  <div class="flex justify-center items-center">
-    ⏱ {relative}
-  </div>
-  <div class="flex justify-end items-center">
-    <div class="w-2 h-2 flex justify-center items-center ml-2 p-3">⬆️</div>
-    <div class="w-2 h-2 flex justify-center items-center ml-2 p-3">
-      <div on:click={() => push(`/site/${site["id"]}/overview`)}>📊</div>
+<div class="w-full h-12 mt-2 bg-{theme}-1 rounded hover:shadow-md px-4">
+  <div class="h-full flex items-center justify-between">
+    <div class="cursor-pointer" on:click={() => push(`/site/${site["id"]}/overview`)}>
+      <b>{site["nickname"]}</b>
     </div>
-    <div class="w-2 h-2 flex justify-center items-center ml-2 p-3">⚙️</div>
+    <div>
+      <span>{relative}</span>
+      <span>/cdot</span>
+      {#if (site["deployed_sha"] && site["github_repo"])}
+      <a href={`${site["github_repo"]}/commit/${site["deployed_sha"]}`} target="_blank">{site["deployed_sha"].substring(0, 7)}</a>
+      {:else if site["deployed_sha"]}
+      <span>{site["deployed_sha"].substring(0, 7)}</span>
+      {:else}
+      <span>(never deployed)</span>
+      {/if}
+    </div>
   </div>
 </div>

@@ -23,10 +23,8 @@
   // and subscribed to by Chart. Should eventually be a QueryParamStore?
 
   let sitePromise = supa.GetSite(params["id"])
-  let aliasPromise = supa.GetAliases(params["id"]);
-  let defaultAliasPromise = aliasPromise.then((arr) => arr.find((e) => e["is_default"]));
-  let backendParamStorePromise = defaultAliasPromise.then((alias) => writable({
-    "hostname": alias["hostname"],
+  let backendParamStorePromise = sitePromise.then((site) => writable({
+    "hostname": site["custom_hostname"] ? site["custom_hostname"] : site["hostname"],
     "start": dayjs().startOf('day').unix(),
     "end": dayjs().endOf('day').unix(),
     "bots": false,

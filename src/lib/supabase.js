@@ -112,26 +112,33 @@ export default class Supabase {
     return data;
   }
 
+  // sets the indicated fields of the SITE row with the given id
+  // note custom_hostname isn't here, that's entirely handled by backed
+  async UpdateSite(site, nickname, index_path, github_repo) {
+
+    console.log(`Updating in supabase site row with ID ${site}...`);
+
+    let update = {
+      "nickname": nickname,
+      "index_path": index_path,
+      "github_repo": github_repo,
+    }
+
+    let { error } = await this.client.from('site').update(update).eq('id', site);
+
+    if (error) {
+      throw new Error(`Couldn't update data in supabase: ${error}`);
+    }
+
+    return;
+  }
+
   // gets the list of sites created by the currently-logged-in user
   async GetSites() {
 
     console.log("Getting from supabase the list of sites...");
 
     let { data, error } = await this.client.from('site').select();
-
-    if (error) {
-      throw new Error(`Couldn't get data from supabase: ${error}`);
-    }
-
-    return data;
-  }
-
-  // gets the list of alises for the given site
-  async GetAliases(site) {
-
-    console.log(`Getting from supabase the list of aliases for site ${site}...`);
-
-    let { data, error } = await this.client.from('alias').select().eq('site_id', site);
 
     if (error) {
       throw new Error(`Couldn't get data from supabase: ${error}`);
