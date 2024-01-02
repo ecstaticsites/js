@@ -14,8 +14,8 @@ export default class Supabase {
 
     Supabase.instance = this;
 
-    let supabaseUrl = import.meta.env.SUPABASE_URL;
-    let supabaseKey = import.meta.env.SUPABASE_ANON_KEY;
+    let supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    let supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
     this.client = createClient(supabaseUrl, supabaseKey);
   }
