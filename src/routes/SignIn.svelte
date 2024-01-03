@@ -34,7 +34,7 @@
         {#if errorText}
         <div class="text-red-5 text-xs italic mb-2">{errorText}</div>
         {/if}
-        <SubmitButton>Sign Up</SubmitButton>
+        <SubmitButton>Sign In</SubmitButton>
       </div>
     </form>
     <div class="text-xs mx-auto mt-6">
