@@ -25,7 +25,7 @@
     </div>
     <div>
       <span>{relative}</span>
-      <span>/cdot</span>
+      <span>&nbsp;-&nbsp;</span>
       {#if (site["deployed_sha"] && site["github_repo"])}
       <a href={`${site["github_repo"]}/commit/${site["deployed_sha"]}`} target="_blank">{site["deployed_sha"].substring(0, 7)}</a>
       {:else if site["deployed_sha"]}
