@@ -97,6 +97,24 @@ export default class Supabase {
     return data["session"]["access_token"];
   }
 
+  // throws out the current token and gets a fresh one (with updated metadata) from supabase
+  async RefreshAccessToken() {
+
+    console.log("Calling refreshSession to retrieve a new JWT...");
+
+    let { data, error } = await this.client.auth.refreshSession();
+
+    if (error) {
+      throw new Error(`Error occurred in refreshSession: ${error}`)
+    } else if (!data["session"]) {
+      throw new Error("No session in refreshSession response, maybe not logged in?")
+    } else if (!data["session"]["access_token"]) {
+      throw new Error("No access_token in refreshSession response, maybe not logged in?")
+    }
+
+    return;
+  }
+
   // gets the data for a single site ID
   async GetSite(site) {
 

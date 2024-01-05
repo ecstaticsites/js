@@ -12,6 +12,7 @@
 </script>
 
 <main class="w-screen h-screen flex bg-{theme}-0">
+  <!-- this doesn't work, need some way of enforcing fixed width?? -->
   <div class="h-full w-80">
     <Sidebar siteid={siteid} nickname={nickname} selected={selected}/>
   </div>

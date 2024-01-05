@@ -34,8 +34,8 @@
         <SidebarItem text="Settings" icon="cog" action={() => push(`/site/${siteid}/settings`)} active={selected == "settings"} enabled={siteid != ""}/>
       </div>
       <div class="w-full">
-        <SidebarItem text="Support" icon="information-circle" active={false} enabled={true}/>
-        <SidebarItem text="My Account" icon="user-circle" active={false} enabled={true}/>
+        <SidebarItem text="Support" icon="information-circle" action={() => window.location.href = "mailto:brandon@willett.io"} active={false} enabled={true}/>
+        <SidebarItem text="My Account" icon="user-circle" active={false} enabled={false}/>
         <SidebarItem text="Sign Out" icon="x-circle" action={() => supa.SignOut()} active={false} enabled={true}/>
       </div>
     </div>

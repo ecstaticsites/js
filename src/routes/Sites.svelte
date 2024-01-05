@@ -4,6 +4,8 @@
 
   import Supabase from '../lib/supabase.js';
 
+  import { theme } from "../lib/usersettings.js";
+
   let supa = new Supabase();
 
   let sitesPromise = supa.GetSites();
@@ -13,9 +15,18 @@
   {#await sitesPromise}
     ...THINKING...
   {:then sites}
-    {#each sites as site}
-      <SiteRow site={site} />
-    {/each}
+    {#if (sites.length == 0)}
+      <div class="w-full h-full flex justify-center items-center">
+        <div class="flex flex-col justify-between items-center bg-{theme}-1 shadow-md rounded p-8">
+          <div class="mb-1">You haven't created any sites yet!</div>
+          <div class="mb-1">Click <a class="underline" href="#/create">here</a> to get started, or <a class="underline" target="_blank" href="https://docs.cbnr.xyz/pages/creating.html">here</a> for the docs.</div>
+        </div>
+      </div>
+    {:else}
+      {#each sites as site}
+        <SiteRow site={site} />
+      {/each}
+    {/if}
   {:catch err}
     ERROR OCCURRED: {err}
   {/await}

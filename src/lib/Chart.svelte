@@ -73,10 +73,23 @@
         "axis": {
           "x": {
             "type": "timeseries",
+            // "label": {
+            //   "text": "Your X Axis",
+            //   "position": "outer-center",
+            // },
             "tick": {
               "format": (s) => dayjs.unix(s).format(timespanIsDay ? 'H:mm' : 'MMM D'),
-            }
-          }
+            },
+          },
+          "y": {
+            "tick": {
+              "format": (s) => (Math.floor(s) === s) ? Math.floor(s) : "",
+            },
+            "label": {
+              "text": "Site Hits",
+              "position": "outer-middle",
+            },
+          },
         },
         "legend": {
           "show": true,
