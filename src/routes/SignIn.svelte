@@ -9,14 +9,17 @@
   let password;
 
   let errorText = "";
+  let thinking = false;
 
   let supa = new Supabase();
 
   async function signIn() {
+    thinking = true;
     try {
       await supa.SignIn(email, password);
     } catch (e) {
       errorText = e.message;
+      thinking = false;
     }
   }
 
@@ -34,7 +37,7 @@
         {#if errorText}
         <div class="text-red-5 text-xs italic mb-2">{errorText}</div>
         {/if}
-        <SubmitButton>Sign In</SubmitButton>
+        <SubmitButton thinking={thinking}>Sign In</SubmitButton>
       </div>
     </form>
     <div class="text-xs mx-auto mt-6">

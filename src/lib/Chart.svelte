@@ -102,7 +102,7 @@
 
 </script>
 
-<div class="w-full h-full flex flex-col mt-4">
+<div class="w-full h-full flex flex-col">
   <div class="grid w-full grow">
     {#if loading}
     <div class="flex justify-center items-center overlay h-96 w-full bg-opacity-50 backdrop-blur z-10">

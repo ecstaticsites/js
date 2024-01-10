@@ -50,16 +50,19 @@
 
 </script>
 
-<div class="flex justify-between items-center mt-4 px-2">
+<div class="flex justify-between items-center">
   <div class="flex items-center">
-    <div class="text-2xl border rounded-md cursor-pointer select-none px-2 mr-2">
-      {$store["hostname"]}
+    <div class="mr-2">
+      <ControllerButton text="View Month" icon="calendar-days" bind:pressed={months} action={() => months = !months}/>
     </div>
-    <ControllerButton icon="calendar-days" bind:pressed={months} action={() => months = !months}/>
-    <ControllerButton icon="cpu-chip" bind:pressed={bots} action={() => bots = !bots}/>
+    <div class="mr-2">
+      <ControllerButton text="Include Bot Requests" icon="cpu-chip" bind:pressed={bots} action={() => bots = !bots}/>
+    </div>
   </div>
   <div class="flex items-center">
-    <ControllerButton icon="arrow-left" action={() => value = dayjs(value).subtract(1, period).toDate()}/>
+    <div class="mr-2">
+      <ControllerButton icon="arrow-left" action={() => value = dayjs(value).subtract(1, period).toDate()}/>
+    </div>
     <div class="border rounded-md cursor-pointer select-none px-2 py-1 mr-2">
       <div class:hidden={!months}>
         <Flatpickr options={monthOptions} bind:value />
@@ -68,6 +71,8 @@
         <Flatpickr options={dayOptions} bind:value />
       </div>
     </div>
-    <ControllerButton icon="arrow-right" action={() => value = dayjs(value).add(1, period).toDate()}/>
+    <div>
+      <ControllerButton icon="arrow-right" action={() => value = dayjs(value).add(1, period).toDate()}/>
+    </div>
   </div>
 </div>

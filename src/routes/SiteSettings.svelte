@@ -10,6 +10,7 @@
   let site;
   let copy;
   let errorText;
+  let thinking = false;
 
   let supa = new Supabase();
   let apiHost = import.meta.env.VITE_API_SERVER_URL;
@@ -19,16 +20,21 @@
 
   async function submit() {
 
+    thinking = true;
+
     try {
       await supa.UpdateSite(copy["id"], copy["nickname"], copy["index_path"], copy["github_repo"]);
     } catch (e) {
       errorText = e.message;
+      console.log(errorText);
+      thinking = false;
       return;
     }
 
     // "easy" part of the update worked, let's try the convoluted part
     if (site["custom_hostname"] == copy["custom_hostname"]) {
-      console.log("Custom hostname config not changed, so all done!")
+      console.log("Custom hostname config not changed, so all done!");
+      location.reload();
       return;
     }
 
@@ -56,13 +62,17 @@
         body: JSON.stringify(data),
       });
     } catch(error) {
-      errorText = `API request did not succeed: ${error}`
+      errorText = `API request did not succeed: ${error}`;
+      console.log(errorText);
+      thinking = false;
       return
     }
 
     if (!response.ok) {
       let text = await response.text();
-      errorText = `API request did not succeed: ${text}`
+      errorText = `API request did not succeed: ${text}`;
+      console.log(errorText);
+      thinking = false;
       return
     }
 
@@ -88,7 +98,7 @@
       {#if errorText}
       <div class="text-red-5 text-xs italic mb-2">{errorText}</div>
       {/if}
-      <SubmitButton>Save</SubmitButton>
+      <SubmitButton thinking={thinking}>Save</SubmitButton>
     </div>
   </form>
 </Page>

@@ -9,6 +9,7 @@
 
   let nickname = "";
   let errorText = "";
+  let thinking = false;
 
   let supa = new Supabase();
 
@@ -16,10 +17,13 @@
 
   async function create() {
 
+    thinking = true;
+
     // todo, factor this out into CBNR lib similar to the supabase lib
 
     if (nickname == "") {
       errorText = "Nickname cannot be empty";
+      thinking = false;
       return
     }
 
@@ -41,13 +45,15 @@
         body: JSON.stringify(data),
       });
     } catch(error) {
-      errorText = `API request did not succeed: ${error}`
+      errorText = `API request did not succeed: ${error}`;
+      thinking = false;
       return
     }
 
     if (!response.ok) {
       let text = await response.text();
-      errorText = `API request did not succeed: ${text}`
+      errorText = `API request did not succeed: ${text}`;
+      thinking = false;
       return
     }
 
@@ -55,7 +61,7 @@
 
     console.log(json);
 
-    push(`/createok?site=${encodeURIComponent(json["id"])}`)
+    push(`/createok?site=${encodeURIComponent(json["id"])}`);
   }
 
 </script>
@@ -69,7 +75,7 @@
       {/if}
     </div>
     <div class="flex flex-row justify-end">
-      <SubmitButton>Create</SubmitButton>
+      <SubmitButton thinking={thinking}>Create</SubmitButton>
     </div>
   </form>
 </Page>
