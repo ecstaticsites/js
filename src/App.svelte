@@ -8,6 +8,7 @@
   import Create from './routes/Create.svelte'
   import CreateOk from './routes/CreateOk.svelte'
   import Overview from './routes/Overview.svelte'
+  import Clients from './routes/Clients.svelte'
   import Upload from './routes/Upload.svelte'
   import SignIn from './routes/SignIn.svelte'
   import SignUp from './routes/SignUp.svelte'
@@ -44,6 +45,10 @@
     }),
     "/site/:id/overview": wrap({
       component: Overview,
+      conditions: [SignedInGuard],
+    }),
+    "/site/:id/clients": wrap({
+      component: Clients,
       conditions: [SignedInGuard],
     }),
     "/site/:id/upload": wrap({

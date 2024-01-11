@@ -42,7 +42,8 @@
     store.update((params) => {
       //params["hostname"] = selectedHostname;
       params["start"] = dayjs(value).startOf(period).unix();
-      params["end"] = dayjs(value).endOf(period).unix();
+      // add one because end time is non-inclusive
+      params["end"] = dayjs(value).endOf(period).unix() + 1;
       params["bots"] = bots;
       return params;
     });
@@ -53,10 +54,10 @@
 <div class="flex justify-between items-center">
   <div class="flex items-center">
     <div class="mr-2">
-      <ControllerButton text="View Month" icon="calendar-days" bind:pressed={months} action={() => months = !months}/>
+      <ControllerButton text="View by Month" icon="calendar-days" bind:pressed={months} action={() => months = !months}/>
     </div>
     <div class="mr-2">
-      <ControllerButton text="Include Bot Requests" icon="cpu-chip" bind:pressed={bots} action={() => bots = !bots}/>
+      <ControllerButton text="Include Bots" icon="cpu-chip" bind:pressed={bots} action={() => bots = !bots}/>
     </div>
   </div>
   <div class="flex items-center">

@@ -34,13 +34,27 @@
 {#await promise}
 ...
 {:then res}
-<Page title="Traffic Overview" selected="overview" siteid={res["site"]["id"]} nickname={res["site"]["nickname"]}>
+<Page title="Traffic Clients" selected="clients" siteid={res["site"]["id"]} nickname={res["site"]["nickname"]}>
   <div class="mb-8">
     <Controller siteid={res["site"]["id"]} store={res["store"]}/>
   </div>
-  <!-- negative margin so left edge lines up, still deciding if I like it -->
-  <div class="-ml-9">
-    <Chart variety="timeseries" params={res["store"]} groupby="statuscode"/>
+  <div class="grid grid-cols-2">
+    <div>
+      <div class="text-2xl text-bold">Operating Systems</div>
+      <Chart variety="donut" params={res["store"]} groupby="os"/>
+    </div>
+    <div>
+      <div class="text-2xl text-bold">Browsers</div>
+      <Chart variety="donut" params={res["store"]} groupby="browser"/>
+    </div>
+    <div>
+      <div class="text-2xl text-bold">Device Sizes</div>
+      <Chart variety="donut" params={res["store"]} groupby="device"/>
+    </div>
+    <div>
+      <div class="text-2xl text-bold">Countries</div>
+      <Chart variety="donut" params={res["store"]} groupby="country"/>
+    </div>
   </div>
 </Page>
 {:catch err}

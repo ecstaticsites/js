@@ -26,7 +26,7 @@
         <SidebarItem text="{(nickname != "") ? nickname : "(none selected)"}" action={() => push(`/sites`)} icon="window" active={selected == "sites"} enabled={true}/>
         <div class="px-2 py-2 mb-1"><hr/></div>
         <SidebarItem text="Overview" icon="chart-bar" action={() => push(`/site/${siteid}/overview`)} active={selected == "overview"} enabled={siteid != ""}/>
-        <SidebarItem text="Clients" icon="users" active={selected == "clients"} enabled={siteid != ""}/>
+        <SidebarItem text="Clients" icon="users" action={() => push(`/site/${siteid}/clients`)} active={selected == "clients"} enabled={siteid != ""}/>
         <SidebarItem text="Pages" icon="newspaper" active={selected == "pages"} enabled={siteid != ""}/>
         <SidebarItem text="Errors" icon="exclamation-triangle" active={selected == "errors"} enabled={siteid != ""}/>
         <div class="px-2 py-2 mb-1"><hr/></div>
