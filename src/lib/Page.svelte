@@ -11,6 +11,9 @@
 
 </script>
 
+<svelte:head>
+  <title>Distant - {title}</title>
+</svelte:head>
 <main class="w-screen h-screen flex bg-{theme}-0">
   <!-- this doesn't work, need some way of enforcing fixed width?? -->
   <div class="h-full w-80">

@@ -27,8 +27,8 @@
         <div class="px-2 py-2 mb-1"><hr/></div>
         <SidebarItem text="Overview" icon="chart-bar" action={() => push(`/site/${siteid}/overview`)} active={selected == "overview"} enabled={siteid != ""}/>
         <SidebarItem text="Clients" icon="users" action={() => push(`/site/${siteid}/clients`)} active={selected == "clients"} enabled={siteid != ""}/>
-        <SidebarItem text="Pages" icon="newspaper" active={selected == "pages"} enabled={siteid != ""}/>
-        <SidebarItem text="Errors" icon="exclamation-triangle" active={selected == "errors"} enabled={siteid != ""}/>
+        <SidebarItem text="Pages" icon="newspaper" active={selected == "pages"} enabled={false}/>
+        <SidebarItem text="Errors" icon="exclamation-triangle" active={selected == "errors"} enabled={false}/>
         <div class="px-2 py-2 mb-1"><hr/></div>
         <SidebarItem text="Monitoring" icon="envelope" active={selected == "monitoring"} enabled={false}/>
         <SidebarItem text="Settings" icon="cog" action={() => push(`/site/${siteid}/settings`)} active={selected == "settings"} enabled={siteid != ""}/>

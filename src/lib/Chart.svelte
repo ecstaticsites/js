@@ -77,7 +77,9 @@
 
   onDestroy(() => {
     console.log('the chart is being destroyed');
-    chart.destroy();
+    if (chart) {
+      chart.destroy();
+    }
   });
 
 </script>
