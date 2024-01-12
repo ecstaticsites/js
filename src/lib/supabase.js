@@ -17,7 +17,20 @@ export default class Supabase {
     let supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
     let supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+    this.caching = true;
+    this.cache = new Map();
+
     this.client = createClient(supabaseUrl, supabaseKey);
+  }
+
+  // not perfect, since the site can still be updated from outside the webapp,
+  // eg last-updated field from git pushes. Still, worth something
+  async InvalidateCache() {
+    console.log(`Getting rid of all cached SITE supabase rows...`);
+
+    this.cache = new Map();
+
+    return;
   }
 
   async SignUp(email, pw) {
@@ -112,6 +125,8 @@ export default class Supabase {
       throw new Error("No access_token in refreshSession response, maybe not logged in?")
     }
 
+    this.InvalidateCache();
+
     return;
   }
 
@@ -120,10 +135,19 @@ export default class Supabase {
 
     console.log(`Getting from supabase the data for site ID ${site}...`);
 
+    if ((this.caching) && this.cache.has(site)) {
+      console.log(`Found data for site ID ${site} in cache, returning that...`);
+      return this.cache.get(site);
+    }
+
     let { data, error } = await this.client.from('site').select().eq('id', site).single();
 
     if (error) {
       throw new Error(`Couldn't get data from supabase: ${error}`);
+    }
+
+    if (this.caching) {
+      this.cache.set(site, data);
     }
 
     return data;
@@ -146,6 +170,8 @@ export default class Supabase {
     if (error) {
       throw new Error(`Couldn't update data in supabase: ${error}`);
     }
+
+    this.InvalidateCache();
 
     return;
   }

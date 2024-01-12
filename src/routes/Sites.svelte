@@ -28,6 +28,6 @@
       {/each}
     {/if}
   {:catch err}
-    ERROR OCCURRED: {err}
+    Error rendering page: {err}
   {/await}
 </Page>

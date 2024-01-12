@@ -103,5 +103,5 @@
   </form>
 </Page>
 {:catch err}
-err
+Error rendering page: {err}
 {/await}
