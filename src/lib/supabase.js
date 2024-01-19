@@ -24,7 +24,8 @@ export default class Supabase {
   }
 
   // not perfect, since the site can still be updated from outside the webapp,
-  // eg last-updated field from git pushes. Still, worth something
+  // eg last-updated field from git pushes. Still, worth something, and since
+  // it's dumped on even a page reload, it's essentially session-lifetime
   async InvalidateCache() {
     console.log(`Getting rid of all cached SITE supabase rows...`);
 
@@ -81,7 +82,7 @@ export default class Supabase {
     let { error } = await this.client.auth.signOut();
 
     if (error) {
-      throw new Error(`Sign out was unsuccessful: ${error}`);
+      throw new Error(`Sign out was unsuccessful: ${error["message"]}`);
     }
 
     console.log("Sign out was successful, reloading...");
@@ -100,7 +101,7 @@ export default class Supabase {
     let { data, error } = await this.client.auth.getSession();
 
     if (error) {
-      throw new Error(`Error occurred in getSession: ${error}`)
+      throw new Error(`Error occurred in getSession: ${error["message"]}`)
     } else if (!data["session"]) {
       throw new Error("No session in getSession response, maybe not logged in?")
     } else if (!data["session"]["access_token"]) {
@@ -118,7 +119,7 @@ export default class Supabase {
     let { data, error } = await this.client.auth.refreshSession();
 
     if (error) {
-      throw new Error(`Error occurred in refreshSession: ${error}`)
+      throw new Error(`Error occurred in refreshSession: ${error["message"]}`)
     } else if (!data["session"]) {
       throw new Error("No session in refreshSession response, maybe not logged in?")
     } else if (!data["session"]["access_token"]) {
@@ -143,7 +144,7 @@ export default class Supabase {
     let { data, error } = await this.client.from('site').select().eq('id', site).single();
 
     if (error) {
-      throw new Error(`Couldn't get data from supabase: ${error}`);
+      throw new Error(`Couldn't get data from supabase: ${error["message"]}`);
     }
 
     if (this.caching) {
@@ -168,7 +169,7 @@ export default class Supabase {
     let { error } = await this.client.from('site').update(update).eq('id', site);
 
     if (error) {
-      throw new Error(`Couldn't update data in supabase: ${error}`);
+      throw new Error(`Couldn't update data in supabase: ${error["message"]}`);
     }
 
     this.InvalidateCache();
@@ -181,11 +182,17 @@ export default class Supabase {
 
     console.log("Getting from supabase the list of sites...");
 
-    let { data, error } = await this.client.from('site').select();
+    let { data, error } = await this.client.from('site').select().order('nickname');
 
     if (error) {
-      throw new Error(`Couldn't get data from supabase: ${error}`);
+      throw new Error(`Couldn't get data from supabase: ${error["message"]}`);
     }
+
+    data.forEach((site) => {
+      if (this.caching) {
+        this.cache.set(site["id"], site);
+      }
+    });
 
     return data;
   }
@@ -198,7 +205,7 @@ export default class Supabase {
     let { data, error } = await this.client.auth.getSession();
 
     if (error) {
-      console.log(`Error occurred in getSession: ${error}`);
+      console.log(`Error occurred in getSession: ${error["message"]}`);
       return false;
     } else if (!data["session"]) {
       console.log("No user seems to be logged in!");

@@ -4,9 +4,11 @@
 
   import relativeTime from "dayjs/esm/plugin/relativeTime";
 
-  import { theme } from "../lib/usersettings.js";
+  import { theme } from "./usersettings.js";
 
   import { push } from 'svelte-spa-router';
+
+  import Icon from './Icon.svelte';
 
   // WORKS IN DEV, BREAKS IN PROD??
   dayjs.extend(relativeTime);
@@ -20,8 +22,9 @@
 
 <div class="w-full h-12 mt-2 bg-{theme}-1 rounded hover:shadow-md px-4">
   <div class="h-full flex items-center justify-between">
-    <div class="cursor-pointer" on:click={() => push(`/site/${site["id"]}/overview`)}>
-      <b>{site["nickname"]}</b>
+    <div class="flex flex-row items-center cursor-pointer" on:click={() => push(`/site/${site["id"]}/overview`)}>
+      <Icon icon="window"/>
+      <b class="ml-3">{site["nickname"]}</b>
     </div>
     <div>
       <span>{relative}</span>

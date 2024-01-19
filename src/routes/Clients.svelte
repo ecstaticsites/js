@@ -8,7 +8,7 @@
   import Page from '../lib/Page.svelte';
   import Supabase from '../lib/supabase.js';
 
-  // this is how the component gets query params from svelte-spa-router
+  // this is how the component gets path-based params from svelte-spa-router
   export let params = {};
 
   let supa = new Supabase();

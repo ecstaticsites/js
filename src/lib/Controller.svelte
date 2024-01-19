@@ -3,12 +3,10 @@
   // todo, this all causes 3 queries to be issued at page load!
 
   import dayjs from 'dayjs';
-
   import Flatpickr from 'svelte-flatpickr';
   import monthSelectPlugin from 'flatpickr/dist/plugins/monthSelect';
 
   import Supabase from './supabase.js';
-
   import ControllerButton from './ControllerButton.svelte';
 
   export let store;
