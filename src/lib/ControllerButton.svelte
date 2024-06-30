@@ -1,11 +1,11 @@
 <script>
 
-  import { theme } from "./usersettings.js";
-
   export let icon;
   export let pressed;
   export let action;
   export let text = "";
+  // the accent color to use, it's part of the SITE row
+  export let color;
 
   // icons from https://heroicons.com/
   let iconMap = {
@@ -17,7 +17,7 @@
 
 </script>
 
-<div class="{pressed ? `bg-${theme}-1` : `hover:bg-${theme}-1`} active:bg-{theme}-2 border rounded-md cursor-pointer select-none flex flex-row items-center" on:click={action}>
+<div class="{pressed ? `bg-${color}-1` : `hover:bg-${color}-1`} active:bg-{color}-2 border rounded-md cursor-pointer select-none flex flex-row items-center" on:click={action}>
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 m-1.5">
     <path stroke-linecap="round" stroke-linejoin="round" d="{iconMap[icon]}" />
   </svg>

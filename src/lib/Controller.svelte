@@ -10,6 +10,8 @@
   import ControllerButton from './ControllerButton.svelte';
 
   export let store;
+  // the accent color to use, it's part of the SITE row
+  export let color;
 
   let dayOptions = {
     "dateFormat": "F j, Y",
@@ -52,15 +54,15 @@
 <div class="flex justify-between items-center">
   <div class="flex items-center">
     <div class="mr-2">
-      <ControllerButton text="View by Month" icon="calendar-days" bind:pressed={months} action={() => months = !months}/>
+      <ControllerButton color={color} text="View by Month" icon="calendar-days" bind:pressed={months} action={() => months = !months}/>
     </div>
     <div class="mr-2">
-      <ControllerButton text="Include Bots" icon="cpu-chip" bind:pressed={bots} action={() => bots = !bots}/>
+      <ControllerButton color={color} text="Include Bots" icon="cpu-chip" bind:pressed={bots} action={() => bots = !bots}/>
     </div>
   </div>
   <div class="flex items-center">
     <div class="mr-2">
-      <ControllerButton icon="arrow-left" action={() => value = dayjs(value).subtract(1, period).toDate()}/>
+      <ControllerButton color={color} icon="arrow-left" action={() => value = dayjs(value).subtract(1, period).toDate()}/>
     </div>
     <div class="border rounded-md cursor-pointer select-none px-2 py-1 mr-2">
       <div class:hidden={!months}>
@@ -71,7 +73,7 @@
       </div>
     </div>
     <div>
-      <ControllerButton icon="arrow-right" action={() => value = dayjs(value).add(1, period).toDate()}/>
+      <ControllerButton color={color} icon="arrow-right" action={() => value = dayjs(value).add(1, period).toDate()}/>
     </div>
   </div>
 </div>

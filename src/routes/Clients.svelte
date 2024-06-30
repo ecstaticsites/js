@@ -34,26 +34,26 @@
 {#await promise}
 ...
 {:then res}
-<Page title="Traffic Clients" selected="clients" siteid={res["site"]["id"]} nickname={res["site"]["nickname"]}>
+<Page title="Traffic Clients" selected="clients" siteid={res["site"]["id"]} nickname={res["site"]["nickname"]} color={res["site"]["color"]}>
   <div class="mb-8">
-    <Controller siteid={res["site"]["id"]} store={res["store"]}/>
+    <Controller siteid={res["site"]["id"]} store={res["store"]} color={res["site"]["color"]}/>
   </div>
   <div class="grid grid-cols-2">
     <div>
       <div class="text-2xl text-bold">Operating Systems</div>
-      <Chart variety="donut" params={res["store"]} groupby="os"/>
+      <Chart color={res["site"]["color"]} variety="donut" params={res["store"]} groupby="os"/>
     </div>
     <div>
       <div class="text-2xl text-bold">Browsers</div>
-      <Chart variety="donut" params={res["store"]} groupby="browser"/>
+      <Chart color={res["site"]["color"]} variety="donut" params={res["store"]} groupby="browser"/>
     </div>
     <div>
       <div class="text-2xl text-bold">Device Sizes</div>
-      <Chart variety="donut" params={res["store"]} groupby="device"/>
+      <Chart color={res["site"]["color"]} variety="donut" params={res["store"]} groupby="device"/>
     </div>
     <div>
       <div class="text-2xl text-bold">Countries</div>
-      <Chart variety="donut" params={res["store"]} groupby="country"/>
+      <Chart color={res["site"]["color"]} variety="donut" params={res["store"]} groupby="country"/>
     </div>
   </div>
 </Page>

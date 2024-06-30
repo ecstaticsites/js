@@ -1,7 +1,5 @@
 <script>
 
-  import { theme } from "../lib/usersettings.js";
-
   import Sidebar from '../lib/Sidebar.svelte'
 
   import Supabase from '../lib/supabase.js'
@@ -51,7 +49,7 @@
   }
 </script>
 
-<main class="w-screen h-screen flex bg-{theme}-0">
+<main class="w-screen h-screen flex bg-red-0">
   <div class="h-full w-80">
     <Sidebar siteid={params["id"]} selected={"upload"}/>
   </div>

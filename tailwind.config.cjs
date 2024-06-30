@@ -11,7 +11,7 @@ export default {
       variants: ['hover', 'active'],
     },
     {
-      pattern: /outline-(gray|red|pink|purple|violet|indigo|blue|cyan|teal|green|lime|yellow|orange|choco|brown|sand|camo|jungle)-(3)/,
+      pattern: /outline-(gray|red|pink|purple|violet|indigo|blue|cyan|teal|green|lime|yellow|orange|choco|brown|sand|camo|jungle)-(2|10)/,
       variants: ['focus'],
     },
     {
@@ -251,7 +251,7 @@ export default {
         "12": "#422412",
       },
       "sand": {
-        "0": "#f8fafb",
+        "0": "#faf9f6",
         "1": "#e6e4dc",
         "2": "#d5cfbd",
         "3": "#c2b9a0",

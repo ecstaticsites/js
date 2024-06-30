@@ -23,7 +23,7 @@
     thinking = true;
 
     try {
-      await supa.UpdateSite(copy["id"], copy["nickname"], copy["index_path"], copy["github_repo"]);
+      await supa.UpdateSite(copy["id"], copy["nickname"], copy["index_path"], copy["github_repo"], copy["color"]);
     } catch (e) {
       errorText = e.message;
       console.log(errorText);
@@ -85,14 +85,15 @@
 {#await copyPromise}
 ...
 {:then}
-<Page title="Site Settings" selected="settings" siteid={site["id"]} nickname={site["nickname"]}>
+<Page title="Site Settings" selected="settings" siteid={site["id"]} nickname={site["nickname"]} color={site["color"]}>
   <form class="h-full flex flex-col justify-between" on:submit|preventDefault={submit}>
     <div>
-      <Input label="Site ID" value={copy["id"]} readonly={true}/>
-      <Input label="Site Nickname" bind:value={copy["nickname"]}/>
-      <Input label="Index Path" bind:value={copy["index_path"]}/>
-      <Input label="Github Repository" bind:value={copy["github_repo"]} placeholder="(not set)"/>
-      <Input label="Custom Domain" bind:value={copy["custom_hostname"]} placeholder="(not set)"/>
+      <Input color={site["color"]} label="Site ID" value={copy["id"]} readonly={true}/>
+      <Input color={site["color"]} label="Site Nickname" bind:value={copy["nickname"]}/>
+      <Input color={site["color"]} label="Index Path" bind:value={copy["index_path"]}/>
+      <Input color={site["color"]} label="Github Repository" bind:value={copy["github_repo"]} placeholder="(not set)"/>
+      <Input color={site["color"]} label="Custom Domain" bind:value={copy["custom_hostname"]} placeholder="(not set)"/>
+      <Input color={site["color"]} label="Color" bind:value={copy["color"]}/>
     </div>
     <div class="flex flex-col items-end justify-end">
       {#if errorText}
