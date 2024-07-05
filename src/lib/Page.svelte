@@ -1,6 +1,7 @@
 <script>
 
   import Sidebar from '../lib/Sidebar.svelte';
+  import Footer from '../lib/Footer.svelte';
 
   import { SITELESS_COLOR } from '../lib/const.js'
 
@@ -20,10 +21,11 @@
   <div class="h-full w-80">
     <Sidebar siteid={siteid} nickname={nickname} selected={selected} color={color}/>
   </div>
-  <div class="h-full w-full flex justify-center bg-white shadow-xl rounded-sm">
+  <div class="h-full w-full flex flex-col justify-between items-center bg-white shadow-xl rounded-sm">
     <div class="w-[768px] py-8 flex flex-col justify-start">
       <div class="text-4xl text-bold my-6">{title}</div>
       <slot>page content goes here</slot>
     </div>
+    <Footer color={color}/>
   </div>
 </main>
