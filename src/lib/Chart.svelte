@@ -44,7 +44,7 @@
       // categorical charts don't have time buckets, timeseries charts do
       let bucketby = "";
       if (variety == "timeseries") {
-        bucketby = (p.end - p.start <= 86400) ? "1h" : "1d";
+        bucketby = (p.end - p.start <= 86400) ? "hour" : "day";
       }
 
       let query = `hostname=${p.hostname}&groupby=${groupby}&bucketby=${bucketby}&start=${p.start}&end=${p.end}&bots=${p.bots}&tz=${encodeURIComponent(tz)}`

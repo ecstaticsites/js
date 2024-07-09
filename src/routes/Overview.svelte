@@ -40,7 +40,7 @@
   </div>
   <!-- negative margin so left edge lines up, still deciding if I like it -->
   <div class="-ml-9">
-    <Chart variety="timeseries" params={res["store"]} groupby="statuscode" color={res["site"]["color"]}/>
+    <Chart variety="timeseries" params={res["store"]} groupby="StatusCategory" color={res["site"]["color"]}/>
   </div>
 </Page>
 {:catch err}

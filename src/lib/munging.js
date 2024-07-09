@@ -2,28 +2,28 @@ import bb, { bar, donut } from 'billboard.js';
 import dayjs from 'dayjs';
 import { fixedLength } from './util.js'
 
-// this function is kinda mystifying to me even though I wrote it
-// seems to work for both categorical and timeseries data
-// so I'm just gonna leave it alone for now
 function influxToBillboard(influx) {
 
-  if (influx["results"] === undefined) {
-    return [];
+  if (Object.keys(influx).length == 0) {
+    return []
   }
 
-  // todo, any kind of error handling around this
-  let series = influx["results"][0]["series"];
+  // this is no good! CH does not send all 24 datapoints with zeroes
+  // so we'll need to write a little JS to generate ticks from the bounds
+  let firstGroupKey = Object.keys(influx)[0]
+  let firstGroup = influx[firstGroupKey]
+  let ticks = firstGroup.map((x) => x["Time"]);
+  let ticksRow = ["x", ...ticks]
+  console.log(ticksRow)
 
-  let names = series.map((s) => Object.values(s["tags"])[0]);
-  names = names.map((n) => (n == "") ? "(none)" : fixedLength(n, 15));
+  let values = [];
+  for (const [groupKey, points] of Object.entries(influx)) {
+    let hits = points.map((x) => x["Hits"]);
+    let row = [groupKey, ...hits]
+    values.push(row)
+  }
 
-  let values = series.map((s) => s["values"].map((v) => v[1]));
-  names.forEach((name, index) => values[index].unshift(name));
-
-  let ticks = series.map((s) => s["values"].map((v) => v[0]))[0];
-  ticks.unshift("x");
-
-  return [ticks, ...values]
+  return [ticksRow, ...values]
 }
 
 function timeseriesData(influx) {
@@ -59,7 +59,7 @@ function timeseriesAxis(bucketby) {
       //   "position": "outer-center",
       // },
       "tick": {
-        "format": (s) => dayjs.unix(s).format((bucketby == "1h") ? 'H:mm' : 'MMM D'),
+        "format": (s) => dayjs.unix(s).format((bucketby == "hour") ? 'H:mm' : 'MMM D'),
       },
     },
     "y": {
