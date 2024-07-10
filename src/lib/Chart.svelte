@@ -65,7 +65,7 @@
 
       console.log(json);
 
-      let bbResponse = renderBillboard(chartId, variety, bucketby, json);
+      let bbResponse = renderBillboard(chartId, variety, p.start, p.end, bucketby, json);
 
       console.log(bbResponse);
 
