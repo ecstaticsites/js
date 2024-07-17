@@ -6,9 +6,9 @@
       "echo 'Welcome to devbox!' > /dev/null",
     ],
     "scripts": {
-      "install": ["npm install", "npm install -g vite"],
-      "build":   ["npm run build"],
-      "dev":     ["npm run dev"],
+      "deps": ["npm install"],
+      "build": ["npm run build"],
+      "dev": ["npm run dev"],
     },
   },
 }
