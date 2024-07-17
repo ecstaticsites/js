@@ -6,11 +6,14 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: stepchowfun/toast/.github/actions/toast@v0.47.5
-      with:
-        tasks: build
-    - uses: ayeressian/bunnycdn-storage-deploy@v2.1.0
+    - name: Checkout repo
+      uses: actions/checkout@v2
+    - name: Install devbox
+      uses: jetify-com/devbox-install-action@v0.11.0
+    - name: Build site
+      run: devbox install && devbox run build
+    - name: Upload site to bunny
+      uses: ayeressian/bunnycdn-storage-deploy@v2.1.0
       with:
         source: "dist"
         storageZoneName: "${{ secrets.STORAGE_NAME }}"

@@ -1,5 +1,8 @@
 # built site artifacts
 /dist
 
+# of course
+/node_modules
+
 # mac stuff
 .DS_Store
