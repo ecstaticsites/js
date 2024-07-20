@@ -21,7 +21,7 @@
       // like hostname, time range, group bys, etc, it is set by the Controller
       // and subscribed to by Chart. Should eventually be a QueryParamStore?
       "store": writable({
-        "hostname": site["custom_hostname"] ? site["custom_hostname"] : site["hostname"],
+        "zoneid": site["pull_zone_id"],
         "start": dayjs().startOf('day').unix(),
         "end": dayjs().endOf('day').unix(),
         "bots": false,

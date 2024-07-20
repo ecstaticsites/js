@@ -32,8 +32,8 @@
 
     params.subscribe(async (p) => {
 
-      if (p.hostname == "") {
-        console.log("Hostname is not set yet, skipping chart update");
+      if (p.zoneId == "") {
+        console.log("zoneId is not set yet, skipping chart update");
         return;
       }
 
@@ -47,7 +47,7 @@
         bucketby = (p.end - p.start <= 86400) ? "hour" : "day";
       }
 
-      let query = `hostname=${p.hostname}&groupby=${groupby}&bucketby=${bucketby}&start=${p.start}&end=${p.end}&bots=${p.bots}&tz=${encodeURIComponent(tz)}`
+      let query = `zoneid=${p.zoneid}&groupby=${groupby}&bucketby=${bucketby}&start=${p.start}&end=${p.end}&bots=${p.bots}&tz=${encodeURIComponent(tz)}`
       let url = `${apiHost}/query?${query}`
 
       console.log(url)
