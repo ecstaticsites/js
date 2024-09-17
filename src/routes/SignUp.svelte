@@ -1,6 +1,5 @@
 <script>
 
-  import Logo from '../lib/Logo.svelte';
   import Input from '../lib/Input.svelte';
   import Supabase from '../lib/supabase.js';
   import SubmitButton from '../lib/SubmitButton.svelte';
@@ -40,10 +39,10 @@
 
 </script>
 
-<main class="w-screen h-screen flex justify-center items-center bg-orange-2">
+<main class="w-screen h-screen flex justify-center items-center bg-[#F7F7EB]">
   <div class="w-80 flex flex-col justify-center items-start bg-white shadow-md rounded p-8">
-    <div class="mx-auto mb-8">
-      <Logo/>
+    <div class="mx-auto py-8">
+      <div class="text-3xl font-semibold text-[#D08606]">ecstatic ᵕ̈</div>
     </div>
     <form class="w-full" on:submit|preventDefault={signUp}>
       <Input label="Email Address" bind:value={email} bind:error={errorText}/>

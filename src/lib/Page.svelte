@@ -14,7 +14,7 @@
 </script>
 
 <svelte:head>
-  <title>Distant - {title}</title>
+  <title>Ecstatic - {title}</title>
 </svelte:head>
 <main class="w-screen h-screen flex">
   <!-- this doesn't work, need some way of enforcing fixed width?? -->

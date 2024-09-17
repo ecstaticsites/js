@@ -1,6 +1,5 @@
 <script>
 
-  import Logo from '../lib/Logo.svelte'
   import SidebarItem from '../lib/SidebarItem.svelte'
 
   import { push } from 'svelte-spa-router'
@@ -20,7 +19,7 @@
   <div class="w-full h-full">
     <div class="w-full h-full flex flex-col justify-between">
       <div class="w-full pt-2">
-        <div class="w-fit mx-auto mb-4"><Logo/></div>
+        <div class="w-fit mx-auto pt-6 pb-8 text-3xl font-semibold text-{color}-12">ecstatic ᵕ̈</div>
         <SidebarItem color={color} text="Create" icon="plus" action={() => push(`/create`)} active={selected == "create"} enabled={true}/>
         <div class="px-2 py-2 mb-1"><hr class="border-none outline outline-[0.5px] outline-{color}-10"/></div>
         <!-- TODO, find a way to make this one stand out without always marking it as "active" (maybe bold?) -->
