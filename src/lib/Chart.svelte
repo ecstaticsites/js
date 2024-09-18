@@ -87,7 +87,7 @@
 <div class="w-full h-full flex flex-col">
   <div class="grid w-full grow">
     {#if loading}
-    <div class="flex justify-center items-center overlay h-[200px] w-full bg-opacity-50 backdrop-blur z-10">
+    <div class="flex justify-center items-center overlay h-[350px] w-full bg-opacity-50 backdrop-blur z-10">
       <div role="status">
         <svg aria-hidden="true" class="w-20 h-20 animate-spin fill-{color}-10" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
@@ -95,7 +95,7 @@
       </div>
     </div>
     {/if}
-    <div class="content h-[200px] w-full z-0" id={chartId}></div>
+    <div class="content h-[350px] w-full z-0" id={chartId}></div>
   </div>
 </div>
 
