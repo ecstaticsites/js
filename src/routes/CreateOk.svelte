@@ -37,7 +37,7 @@
       <div class="mb-1">You've created a new site with ID: <code>{siteId}</code>.</div>
       <div class="mb-1">You can visit it live at the following link: <a class="underline" target="_blank" href="https://{siteId}.b-cdn.net/"><code>{siteId}.b-cdn.net</code></a>.</div>
       <div class="mb-1">The site currently has no content.</div>
-      <div class="mb-1">To start publishing to your new site, check out the <a class="underline" target="_blank" href="https://docs.cbnr.xyz/pages/publishing.html">docs</a>!</div>
+      <div class="mb-1">To start publishing to your new site, check out the <a class="underline" target="_blank" href="https://docs.ecstaticsites.org/pages/publishing.html">docs</a>!</div>
     </div>
     <div class="flex flex-row justify-end">
       <SubmitButton>Back to Sites</SubmitButton>

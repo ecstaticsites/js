@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 
 const commitHash = child.execSync("git rev-parse --short HEAD").toString();
 const commitRef = child.execSync("git rev-parse --abbrev-ref HEAD").toString();
-const repo = `https://github.com/cloudybutnorain/js/tree/${commitHash}`
+const repo = `https://github.com/ecstaticsites/js/tree/${commitHash}`
 const today = dayjs().format('MMM D, YYYY');
 
 // https://vitejs.dev/config/

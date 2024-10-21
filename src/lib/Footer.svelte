@@ -13,5 +13,5 @@
   <div class="text-sm px-3">-</div>
   <div class="text-sm">A copyright would totally go here</div>
   <div class="text-sm px-3">-</div>
-  <div class="text-sm text-{color}-12"><a href="https://docs.cbnr.xyz/" target="_blank">Check out the docs!</a></div>
+  <div class="text-sm text-{color}-12"><a href="https://docs.ecstaticsites.org/" target="_blank">Check out the docs!</a></div>
 </div>
